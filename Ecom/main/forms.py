@@ -10,3 +10,11 @@ class RegisterForm(UserCreationForm):
         """Meta definition for form."""
         model = User
         fields = ('full_name', 'email', 'number', 'age', 'merchant', 'avatar')
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(required=True)
+    password = forms.CharField(required=True)
+
+    # class Meta:
+    #     model = User
