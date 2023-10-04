@@ -4,21 +4,21 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    name = models.CharField(max_length=150)
+    full_name = models.CharField(max_length=150, null=True, blank=True)
     email = models.EmailField(unique=True)
 
-    number = models.CharField(max_length=15, null=True)
+    number = models.CharField(max_length=15, null=True, blank=True)
     verified = models.BooleanField(default=False)
-    age = models.PositiveIntegerField(null=True)
-    merchant = models.BooleanField(default=False)
+    age = models.PositiveIntegerField(null=True, blank=True)
+    merchant = models.BooleanField(default=False, null=True, blank=True)
     avatar = models.ImageField(
-        null=True, default="avatar.svg", upload_to='user/')
+        null=True, default="avatar.jpg", upload_to='user/')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     def __str__(self) -> str:
-        return str(self.name)
+        return str(self.full_name)
 
 
 class Address(models.Model):
