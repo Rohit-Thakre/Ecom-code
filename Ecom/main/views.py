@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
+from .models import Cart, User, Order, Review, Address, Category, Product, Cart_item
 
 from .forms import RegisterForm
 from .forms import LoginForm
@@ -41,3 +42,9 @@ def register(request):
     form = RegisterForm()
     context = {'form': form}
     return render(request, 'login.html', context)
+
+
+def product(request):
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'temp.html', context)
