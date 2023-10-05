@@ -48,3 +48,9 @@ def product(request):
     products = Product.objects.all()
     context = {'products': products}
     return render(request, 'temp.html', context)
+
+
+def user(request):
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'temp.html', context)

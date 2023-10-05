@@ -12,7 +12,7 @@ class User(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
     merchant = models.BooleanField(default=False, null=True, blank=True)
     avatar = models.ImageField(
-        null=True, default="avatar.jpg", upload_to='user/')
+        null=True, default="user/avatar.jpg", upload_to='user/')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

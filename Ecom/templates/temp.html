@@ -9,7 +9,7 @@
 
     <body>
 
-
+        <!-- for viewing products -->
         {% for product in products %}
         <p>Name:{{product.name}}</p>
         <p>Current Price: {{product.current_price}}</p>
@@ -19,6 +19,19 @@
         <img src={{product.image.url}} alt="" height="200px" width="200px">
         {% endfor %}
 
+
+
+        <!-- for viweing users -->
+
+        {% for user in users %}
+
+        <p>full name : {{user.full_name}}</p>
+        <p>email : {{user.email}}</p>
+        <p>number : {{user.number}}</p>
+        <p>verified : {{user.verified}}</p>
+        <p>merchant : {{user.merchant}}</p>
+        <img src={{user.avatar.url}} alt=".." width="100px" height="100px">
+        {% endfor %}
 
 
     </body>
