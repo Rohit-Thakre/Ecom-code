@@ -15,7 +15,7 @@ class User(AbstractUser):
         null=True, default="avatar.jpg", upload_to='user/')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self) -> str:
         return str(self.full_name)
