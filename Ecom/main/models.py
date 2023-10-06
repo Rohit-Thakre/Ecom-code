@@ -49,6 +49,8 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
+    category = models.OneToOneField(Category, on_delete=models.CASCADE)
+
     max_price = models.CharField(max_length=10)
     last_price = models.CharField(max_length=10)
     current_price = models.CharField(max_length=10)
@@ -56,7 +58,12 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='product/')
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    merchant = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    stock = models.PositiveBigIntegerField()
+    likes = models.PositiveBigIntegerField()
+    dislikes = models.PositiveBigIntegerField()
+    # rating = models.PositiveIntegerField()
 
     def __str__(self):
         return str(self.name) + str(self.current_price)
@@ -98,8 +105,11 @@ class Order(models.Model):
     status = models.CharField(max_length=10, choices=CHOICES_status)
     product = models.ForeignKey(Cart_item, on_delete=models.CASCADE)
 
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
     def __str__(self):
-        return str(self.user)
+        return str(self.user) + str(Product)
 
 
 class Review(models.Model):
@@ -108,6 +118,8 @@ class Review(models.Model):
     img = models.ImageField(upload_to='review/', null=True, blank=True)
     rating = models.PositiveIntegerField()
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    likes = models.PositiveIntegerField()
+    dislikes = models.PositiveIntegerField()
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
