@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
@@ -9,21 +9,24 @@ from .forms import LoginForm
 
 
 def user_login(request):
-    form = LoginForm()
+
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            instance = authenticate(email=request.POST.get('email', 0),
-                                    password=request.POST.get('password', 0))
+        email = request.POST.get('email', '')
+        password = request.POST.get('password', '')
+
+        email_check = User.objects.filter(email=email)
+        if email_check:
+            instance = authenticate(email=email, password=password)
             if instance:
                 login(request, instance)
-                return HttpResponse('logged in')
+                return redirect('product')
             else:
-                return HttpResponse('username or password incorrect')
+                return render(request, 'login.html', {'val': True,  'msg': "Password Incorrect !"})
 
-    context = {'form': form}
+        else:
+            return render(request, 'login.html', {'val': True,  'msg': "No account with this email"})
 
-    return render(request, 'login.html', context)
+    return render(request, 'login.html', {'val': False})
 
 
 def user_logout(request):
