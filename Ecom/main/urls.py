@@ -10,6 +10,9 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
     path('register/', views.register, name='register'),
+    path('add_product/', views.add_product, name='add_product'),
+    path('merchant_details/', views.be_merchant, name='merchant_details'),
+    path('cart/', views.cart, name='cart'),
 ]
 
 if settings.DEBUG:

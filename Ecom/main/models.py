@@ -15,7 +15,7 @@ class User(AbstractUser):
         null=True, default="user/avatar.jpg", upload_to='user/')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username', 'full_name']
 
     def __str__(self) -> str:
         return str(self.full_name)
@@ -23,10 +23,12 @@ class User(AbstractUser):
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    street = models.CharField(max_length=50)
+    area = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=20)
-    country = models.CharField(max_length=10)
-    pin = models.CharField(max_length=6)
+    country = models.CharField(max_length=10, default='india')
+    pin = models.IntegerField()
     selected = models.BooleanField(default=True)
 
     created = models.DateTimeField(auto_now_add=True)
@@ -52,7 +54,7 @@ class Product(models.Model):
     category = models.OneToOneField(Category, on_delete=models.CASCADE)
 
     max_price = models.CharField(max_length=10)
-    last_price = models.CharField(max_length=10)
+    last_price = models.CharField(max_length=10, null=True)
     current_price = models.CharField(max_length=10)
 
     description = models.TextField()
@@ -61,8 +63,8 @@ class Product(models.Model):
     merchant = models.ForeignKey(User, on_delete=models.CASCADE)
 
     stock = models.PositiveBigIntegerField()
-    likes = models.PositiveBigIntegerField()
-    dislikes = models.PositiveBigIntegerField()
+    likes = models.PositiveBigIntegerField(null=True)
+    dislikes = models.PositiveBigIntegerField(null=True)
     # rating = models.PositiveIntegerField()
 
     def __str__(self):

@@ -61,13 +61,66 @@ def home(request):
     return render(request, 'home.html')
 
 
-def product(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'temp.html', context)
+def add_product(request):
+    category_list = Category.objects.all()
+    if request.method == 'POST':
+        product_name = request.POST.get('product_name', '')
+        category = request.POST.get('category', '')
+        obj, craeted = Category.objects.get_or_create(type=category)
+        stock = request.POST.get('stock', '')
+        mrp = request.POST.get('mrp', '')
+        selling_price = request.POST.get('selling_price', '')
+        img = request.POST.get('img', '')
+        description = request.POST.get('description', '')
+
+        # print(product_name, category, stock, mrp,
+        #       selling_price, img, description)
+        product_obj = Product(name=product_name, category=obj, stock=stock,
+                              max_price=mrp, current_price=selling_price, image=img, description=description, merchant=request.user)
+        product_obj.save()
+
+        return HttpResponse('data saved.')
+
+    return render(request, 'add_product.html', {'category_list': category_list})
 
 
-def user(request):
-    users = User.objects.all()
-    context = {'users': users}
-    return render(request, 'temp.html', context)
+def be_merchant(request):
+    print(request.user.email)
+    if request.method == 'POST':
+        avatar = request.POST.get('avatar', '')
+
+        # print(avatar)
+        merchant = request.POST.get('merchant', '')
+        merchant = True if merchant == 'True' else False
+
+        age = request.POST.get('age', '')
+        number = request.POST.get('phone', '')
+
+        street = request.POST.get('street', '')
+        area = request.POST.get('area', '')
+        city = request.POST.get('city', '')
+
+        pin = request.POST.get('pin', '')
+        state = request.POST.get('state', '')
+        country = request.POST.get('country', '')
+
+        address_instance = Address(
+            user=request.user, street=street, area=area, city=city, country=country, pin=pin, state=state)
+        address_instance.save()
+
+        user_instance = User.objects.get(email=request.user.email)
+        user_instance.age = age
+        # print(avatar)
+        # if avatar:
+        #     user_instance.avatar = avatar
+        #     print('img set')
+        user_instance.merchant = merchant
+        user_instance.number = number
+        user_instance.save()
+        print('set all.')
+
+    return render(request, 'be_merchant_form.html')
+
+
+def cart(request):
+    return render(request, 'cart.html')
