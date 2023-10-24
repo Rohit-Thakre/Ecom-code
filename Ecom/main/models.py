@@ -74,21 +74,13 @@ class Product(models.Model):
 class Cart_item(models.Model):
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
     count = models.PositiveIntegerField(default=1)
-    current_price = models.CharField(max_length=10)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.product)
-
-
-class Cart(models.Model):
-    items = models.ForeignKey(Cart_item, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.user)
 
 
 class Order(models.Model):

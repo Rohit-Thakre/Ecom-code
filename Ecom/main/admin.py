@@ -28,12 +28,7 @@ class AdminProduct(admin.ModelAdmin):
 
 @admin.register(models.Cart_item)
 class AdminCart_ites(admin.ModelAdmin):
-    list_display = ['product', 'count', 'current_price', 'created', 'updated']
-
-
-@admin.register(models.Cart)
-class AdminCart(admin.ModelAdmin):
-    list_display = ['items', 'user']
+    list_display = ['product', 'count', 'created', 'updated', 'user']
 
 
 # @admin.register(models.Payment_method)

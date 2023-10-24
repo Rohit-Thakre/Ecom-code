@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
-from .models import Cart, User, Order, Review, Address, Category, Product, Cart_item
+from .models import User, Order, Review, Address, Category, Product, Cart_item
 
 from .forms import RegisterForm
 from .forms import LoginForm
@@ -123,4 +123,19 @@ def be_merchant(request):
 
 
 def cart(request):
-    return render(request, 'cart.html')
+    total = 0
+    current_price = 0
+    off = 0
+
+    cart = Cart_item.objects.filter(user=request.user)
+    for x in cart:
+        total += int(x.product.max_price)
+        current_price += int(x.product.current_price)
+
+    context = {'cart': cart, 'total': total,
+               'current_price': current_price, 'off': total - current_price}
+    return render(request, 'cart.html', context)
+
+
+def product(request, key):
+    pass

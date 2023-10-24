@@ -13,6 +13,7 @@ urlpatterns = [
     path('add_product/', views.add_product, name='add_product'),
     path('merchant_details/', views.be_merchant, name='merchant_details'),
     path('cart/', views.cart, name='cart'),
+    path('product-view/<int:id>/', views.product, name='product'),
 ]
 
 if settings.DEBUG:
