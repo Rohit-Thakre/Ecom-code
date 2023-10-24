@@ -58,7 +58,10 @@ def register(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'home.html', context)
 
 
 def add_product(request):
@@ -152,3 +155,7 @@ def product(request, key):
     reviews = Review.objects.filter(product=product)
     context = {'product': product, 'reviews': reviews, 'off': off}
     return render(request, 'product-view.html', context)
+
+
+def category_list(request, type):
+    return render(request, 'product-list.html')

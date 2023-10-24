@@ -51,7 +51,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
-    category = models.OneToOneField(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     max_price = models.CharField(max_length=10)
     last_price = models.CharField(max_length=10, null=True)
