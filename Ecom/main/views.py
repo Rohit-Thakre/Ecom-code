@@ -137,5 +137,18 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
+def remove_from_cart(request, key):
+    item = Cart_item.objects.get(id=key)
+    if item:
+        item.delete()
+        # return HttpResponse('product removed')
+    return redirect('cart')
+
+
 def product(request, key):
-    pass
+
+    product = Product.objects.get(id=key)
+    off = int(product.max_price) - int(product.current_price)
+    reviews = Review.objects.filter(product=product)
+    context = {'product': product, 'reviews': reviews, 'off': off}
+    return render(request, 'product-view.html', context)
