@@ -140,8 +140,18 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
+def add_to_cart(request, key):
+    product = Product.objects.get(id=key)
+    try:
+        cart_obj = Cart_item(product=product, count=1, user=request.user)
+        cart_obj.save()
+    except:
+        pass
+    return redirect('cart')
+
+
 def remove_from_cart(request, key):
-    item = Cart_item.objects.get(id=key)
+    item = Cart_item.objects.get(product__id=key)
     if item:
         item.delete()
         # return HttpResponse('product removed')
@@ -158,4 +168,7 @@ def product(request, key):
 
 
 def category_list(request, type):
-    return render(request, 'product-list.html')
+
+    products = Product.objects.filter(category__type=type)
+    context = {'products': products}
+    return render(request, 'product-list.html', context)
