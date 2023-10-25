@@ -172,7 +172,7 @@ def product(request, key):
 
 def category_list(request, type):
 
-    products = Product.objects.filter(category__type=type)
+    products = Product.objects.filter(category__type__icontains=type)
     context = {'products': products}
     return render(request, 'product-list.html', context)
 
@@ -181,7 +181,7 @@ def account(request):
     user = User.objects.get(full_name=request.user)
     address = None
     try:
-        address = Address.objects.get(user=user)
+        address = Address.objects.filter(user=user).first()
     except:
         pass
     orders = Order.objects.filter(user=request.user)
