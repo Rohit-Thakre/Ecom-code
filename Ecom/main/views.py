@@ -189,3 +189,48 @@ def account(request):
     context = {'user': user, 'address': address, 'orders': orders}
 
     return render(request, 'account.html', context)
+
+
+def edit_profile(request):
+
+    user = User.objects.get(email=request.user.email)
+    address = Address.objects.filter(user=request.user)
+
+    msg = ''
+    show = 0
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+
+        # print(name, email, phone)
+        if name and email and phone:
+            user.full_name = name
+            user.email = email
+            user.number = phone
+            user.save()
+            msg = 'User data saved'
+            show = 1
+
+        street = request.POST.get('street', '')
+        area = request.POST.get('area', '')
+        city = request.POST.get('city', '')
+        state = request.POST.get('state', '')
+        country = request.POST.get('country', '')
+        pin = request.POST.get('pin', '')
+
+        if street and area and city and state and country and pin:
+            adrs_obj = Address.objects.create(
+                street=street, area=area, city=city, state=state, country=country, pin=pin, user=request.user)
+            adrs_obj.save()
+            msg += 'Address saved'
+            show = 1
+
+    context = {'user': user, 'address': address, 'msg': msg, 'show': show}
+    return render(request, 'edit_profile.html', context)
+
+
+def remove_address(request, key):
+
+    pass
