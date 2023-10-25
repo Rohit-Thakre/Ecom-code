@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
@@ -67,6 +68,8 @@ def home(request):
 
 def add_product(request):
     category_list = Category.objects.all()
+    show = 0
+    msg = ''
     if request.method == 'POST':
         product_name = request.POST.get('product_name', '')
         category = request.POST.get('category', '')
@@ -83,17 +86,20 @@ def add_product(request):
                               max_price=mrp, current_price=selling_price, image=img, description=description, merchant=request.user)
         product_obj.save()
 
-        return HttpResponse('data saved.')
+        msg = 'product added.'
+        show = 1
 
-    return render(request, 'add_product.html', {'category_list': category_list})
+    return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show})
 
 
 def be_merchant(request):
-    print(request.user.email)
-    if request.method == 'POST':
-        avatar = request.POST.get('avatar', '')
 
-        # print(avatar)
+    address = Address.objects.filter(user=request.user).first()
+    show = 0
+    msg = ''
+    if request.method == 'POST':
+        # avatar = request.POST.get('avatar', '')
+
         merchant = request.POST.get('merchant', '')
         merchant = True if merchant == 'True' else False
 
@@ -108,7 +114,7 @@ def be_merchant(request):
         state = request.POST.get('state', '')
         country = request.POST.get('country', '')
 
-        address_instance = Address(
+        address_instance = Address.objects.create(
             user=request.user, street=street, area=area, city=city, country=country, pin=pin, state=state)
         address_instance.save()
 
@@ -121,9 +127,11 @@ def be_merchant(request):
         user_instance.merchant = merchant
         user_instance.number = number
         user_instance.save()
-        print('set all.')
+        msg = 'Data Saved !'
+        show = 1
 
-    return render(request, 'be_merchant_form.html')
+    context = {'address': address, 'msg': msg, 'show': show}
+    return render(request, 'be_merchant_form.html', context)
 
 
 def cart(request):
@@ -171,6 +179,9 @@ def product(request, key):
 
 
 def category_list(request, type):
+    # q = request.GET.get('q')
+    # q = q if q != None else ''
+    # print(q)
 
     products = Product.objects.filter(category__type__icontains=type)
     context = {'products': products}
@@ -237,3 +248,27 @@ def remove_address(request, key):
     address.delete()
 
     return redirect('edit_profile')
+
+
+def new_category_list(request):
+    q = request.GET.get('q')
+    q = q if q != None else ''
+
+    products = Product.objects.filter(
+        Q(category__type__icontains=q) |
+        Q(name__icontains=q)
+    )
+    context = {'products': products}
+    return render(request, 'product-list.html', context)
+
+
+def review(request, key):
+
+    show = 0
+    msg = ''
+
+    if request.method == 'POST':
+        pass
+
+    context = {'show': show, 'msg': msg}
+    return render(request, 'reviewForm.html', context)
