@@ -268,7 +268,14 @@ def review(request, key):
     msg = ''
 
     if request.method == 'POST':
-        pass
+        # img = request.POST.get('filename')
+        text = request.POST.get('text')
+
+        # review_obj = Review.objects.create(text=text)
+        # review_obj.save()
+
+        show = 1
+        msg = 'Review Added.'
 
     context = {'show': show, 'msg': msg}
     return render(request, 'reviewForm.html', context)
