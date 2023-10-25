@@ -20,6 +20,11 @@ class AdminCategory(admin.ModelAdmin):
     list_display = ['type', 'by', 'created', 'updated']
 
 
+@admin.register(models.Banner)
+class AdminCategory(admin.ModelAdmin):
+    list_display = ['img', 'by', 'created',]
+
+
 @admin.register(models.Product)
 class AdminProduct(admin.ModelAdmin):
     list_display = ['id', 'name', 'max_price', 'last_price',

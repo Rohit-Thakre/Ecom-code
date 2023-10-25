@@ -99,7 +99,7 @@ class Order(models.Model):
         ('cancelled', 'cancelled'),
     )
     status = models.CharField(max_length=10, choices=CHOICES_status)
-    product = models.ForeignKey(Cart_item, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -122,3 +122,13 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.user) + str(self.product)
+
+
+class Banner(models.Model):
+    img = models.ImageField(upload_to='banner/')
+    by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.by.username)

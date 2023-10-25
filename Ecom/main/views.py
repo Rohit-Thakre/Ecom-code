@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
-from .models import User, Order, Review, Address, Category, Product, Cart_item
+from .models import User, Order, Review, Address, Category, Product, Cart_item, Banner
 
 from .forms import RegisterForm
 from .forms import LoginForm
@@ -59,8 +59,9 @@ def register(request):
 
 def home(request):
 
+    banners = Banner.objects.all()
     products = Product.objects.all()
-    context = {'products': products}
+    context = {'products': products, 'banners': banners}
     return render(request, 'home.html', context)
 
 
@@ -161,9 +162,11 @@ def remove_from_cart(request, key):
 def product(request, key):
 
     product = Product.objects.get(id=key)
+    products = Product.objects.all()
     off = int(product.max_price) - int(product.current_price)
     reviews = Review.objects.filter(product=product)
-    context = {'product': product, 'reviews': reviews, 'off': off}
+    context = {'product': product, 'reviews': reviews,
+               'off': off, 'products': products}
     return render(request, 'product-view.html', context)
 
 
@@ -172,3 +175,17 @@ def category_list(request, type):
     products = Product.objects.filter(category__type=type)
     context = {'products': products}
     return render(request, 'product-list.html', context)
+
+
+def account(request):
+    user = User.objects.get(full_name=request.user)
+    address = None
+    try:
+        address = Address.objects.get(user=user)
+    except:
+        pass
+    orders = Order.objects.filter(user=request.user)
+
+    context = {'user': user, 'address': address, 'orders': orders}
+
+    return render(request, 'account.html', context)
