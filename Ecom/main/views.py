@@ -233,4 +233,7 @@ def edit_profile(request):
 
 def remove_address(request, key):
 
-    pass
+    address = Address.objects.get(id=key)
+    address.delete()
+
+    return redirect('edit_profile')
