@@ -53,5 +53,5 @@ class AdminOrder(admin.ModelAdmin):
 
 @admin.register(models.Review)
 class AdminReview(admin.ModelAdmin):
-    list_display = ['product', 'text', 'img',
+    list_display = ['product', 'img',
                     'rating', 'user', 'created', 'updated']

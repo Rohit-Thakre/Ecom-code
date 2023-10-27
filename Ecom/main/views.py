@@ -5,8 +5,6 @@ from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 from .models import User, Order, Review, Address, Category, Product, Cart_item, Banner
 
-from .forms import RegisterForm
-from .forms import LoginForm
 
 
 def user_login(request):
@@ -65,12 +63,17 @@ def home(request):
     context = {'products': products, 'banners': banners}
     return render(request, 'home.html', context)
 
-
+from .forms import ProductForm
 def add_product(request):
     category_list = Category.objects.all()
     show = 0
     msg = ''
+    form = ProductForm()
+            
     if request.method == 'POST':
+
+        
+
         product_name = request.POST.get('product_name', '')
         category = request.POST.get('category', '')
         obj, craeted = Category.objects.get_or_create(type=category)
@@ -80,25 +83,32 @@ def add_product(request):
         img = request.POST.get('img', '')
         description = request.POST.get('description', '')
 
-        # print(product_name, category, stock, mrp,
-        #       selling_price, img, description)
         product_obj = Product(name=product_name, category=obj, stock=stock,
                               max_price=mrp, current_price=selling_price, image=img, description=description, merchant=request.user)
         product_obj.save()
 
+        form = ProductForm(request.POST, request.FILES, instance=product_obj)
+        if form.is_valid():
+            form.save()
+
         msg = 'product added.'
         show = 1
 
-    return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show})
+    return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show, 'form':form})
 
-
+from .forms import UserForm
 def be_merchant(request):
-
     address = Address.objects.filter(user=request.user).first()
     show = 0
     msg = ''
+
+    user = User.objects.get(email = request.user.email)
+    form = UserForm(instance=user)
+    
     if request.method == 'POST':
-        # avatar = request.POST.get('avatar', '')
+        form = UserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
 
         merchant = request.POST.get('merchant', '')
         merchant = True if merchant == 'True' else False
@@ -130,7 +140,9 @@ def be_merchant(request):
         msg = 'Data Saved !'
         show = 1
 
-    context = {'address': address, 'msg': msg, 'show': show}
+        # return redirect('merchant_details')
+
+    context = {'address': address, 'msg': msg, 'show': show, 'form':form}
     return render(request, 'be_merchant_form.html', context)
 
 
@@ -206,11 +218,18 @@ def edit_profile(request):
 
     user = User.objects.get(email=request.user.email)
     address = Address.objects.filter(user=request.user)
-
     msg = ''
     show = 0
 
+    user = User.objects.get(email = request.user.email)
+    form = UserForm(instance=user)
+    
     if request.method == 'POST':
+
+        form = UserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+
         name = request.POST.get('name', '')
         email = request.POST.get('email', '')
         phone = request.POST.get('phone', '')
@@ -237,8 +256,10 @@ def edit_profile(request):
             adrs_obj.save()
             msg += 'Address saved'
             show = 1
+        
+        return redirect('edit_profile')
 
-    context = {'user': user, 'address': address, 'msg': msg, 'show': show}
+    context = {'user': user, 'address': address, 'msg': msg, 'show': show,'form':form}
     return render(request, 'edit_profile.html', context)
 
 
@@ -261,21 +282,28 @@ def new_category_list(request):
     context = {'products': products}
     return render(request, 'product-list.html', context)
 
+from .forms import ReviewForm
 
 def review(request, key):
 
     show = 0
     msg = ''
+    form = ReviewForm()
+
 
     if request.method == 'POST':
-        # img = request.POST.get('filename')
         text = request.POST.get('text')
 
-        # review_obj = Review.objects.create(text=text)
-        # review_obj.save()
+        review_obj = Review.objects.create(text=text)
+        review_obj.save()
+
+        form = ReviewForm(request.POST, request.FILES, instance=review_obj)
+
+        if form.is_valid():
+            form.save()
 
         show = 1
         msg = 'Review Added.'
 
-    context = {'show': show, 'msg': msg}
+    context = {'show': show, 'msg': msg, 'form':form}
     return render(request, 'reviewForm.html', context)

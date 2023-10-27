@@ -114,8 +114,8 @@ class Review(models.Model):
     img = models.ImageField(upload_to='review/', null=True, blank=True)
     rating = models.PositiveIntegerField()
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    likes = models.PositiveIntegerField()
-    dislikes = models.PositiveIntegerField()
+    likes = models.PositiveIntegerField(default=0)
+    dislikes = models.PositiveIntegerField(default=0)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
