@@ -27,7 +27,7 @@ class AdminCategory(admin.ModelAdmin):
 
 @admin.register(models.Product)
 class AdminProduct(admin.ModelAdmin):
-    list_display = ['id', 'name', 'max_price', 'last_price',
+    list_display = ['name', 'max_price', 'last_price',
                     'current_price', 'image', 'merchant']
 
 

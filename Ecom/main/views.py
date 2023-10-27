@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 from .models import User, Order, Review, Address, Category, Product, Cart_item, Banner
-
+from django.contrib.auth.decorators import login_required
 
 
 def user_login(request):
@@ -64,6 +64,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 from .forms import ProductForm
+@login_required(login_url='login')
 def add_product(request):
     category_list = Category.objects.all()
     show = 0
@@ -97,6 +98,7 @@ def add_product(request):
     return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show, 'form':form})
 
 from .forms import UserForm
+@login_required(login_url='login')
 def be_merchant(request):
     address = Address.objects.filter(user=request.user).first()
     show = 0
@@ -145,7 +147,7 @@ def be_merchant(request):
     context = {'address': address, 'msg': msg, 'show': show, 'form':form}
     return render(request, 'be_merchant_form.html', context)
 
-
+@login_required(login_url='login')
 def cart(request):
     total = 0
     current_price = 0
@@ -160,7 +162,7 @@ def cart(request):
                'current_price': current_price, 'off': total - current_price}
     return render(request, 'cart.html', context)
 
-
+@login_required(login_url='login')
 def add_to_cart(request, key):
     product = Product.objects.get(id=key)
     try:
@@ -170,7 +172,7 @@ def add_to_cart(request, key):
         pass
     return redirect('cart')
 
-
+@login_required(login_url='login')
 def remove_from_cart(request, key):
     item = Cart_item.objects.get(product__id=key)
     if item:
@@ -189,7 +191,6 @@ def product(request, key):
                'off': off, 'products': products}
     return render(request, 'product-view.html', context)
 
-
 def category_list(request, type):
     # q = request.GET.get('q')
     # q = q if q != None else ''
@@ -199,7 +200,7 @@ def category_list(request, type):
     context = {'products': products}
     return render(request, 'product-list.html', context)
 
-
+@login_required(login_url='login')
 def account(request):
     user = User.objects.get(full_name=request.user)
     address = None
@@ -213,7 +214,7 @@ def account(request):
 
     return render(request, 'account.html', context)
 
-
+@login_required(login_url='login')
 def edit_profile(request):
 
     user = User.objects.get(email=request.user.email)
@@ -257,12 +258,12 @@ def edit_profile(request):
             msg += 'Address saved'
             show = 1
         
-        return redirect('edit_profile')
+        # return redirect('edit_profile')
 
     context = {'user': user, 'address': address, 'msg': msg, 'show': show,'form':form}
     return render(request, 'edit_profile.html', context)
 
-
+@login_required(login_url='login')
 def remove_address(request, key):
 
     address = Address.objects.get(id=key)
@@ -283,18 +284,20 @@ def new_category_list(request):
     return render(request, 'product-list.html', context)
 
 from .forms import ReviewForm
-
+@login_required(login_url='login')
 def review(request, key):
 
     show = 0
     msg = ''
     form = ReviewForm()
+    product = Product.objects.get(id=key)
 
 
     if request.method == 'POST':
-        text = request.POST.get('text')
+        text = request.POST.get('text', '')
+        rate = request.POST.get('rate', 0)
 
-        review_obj = Review.objects.create(text=text)
+        review_obj = Review.objects.create(text=text, rating=rate, product = product,user= request.user)
         review_obj.save()
 
         form = ReviewForm(request.POST, request.FILES, instance=review_obj)
