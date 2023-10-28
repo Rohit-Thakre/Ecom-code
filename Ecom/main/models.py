@@ -63,7 +63,7 @@ class Product(models.Model):
     merchant = models.ForeignKey(User, on_delete=models.CASCADE)
 
     stock = models.PositiveBigIntegerField()
-    likes = models.PositiveBigIntegerField(null=True)
+    likes = models.PositiveBigIntegerField(default=0)
     dislikes = models.PositiveBigIntegerField(default=0)
     # rating = models.PositiveIntegerField()
 

@@ -210,7 +210,7 @@ def category_list(request, type):
 
 @login_required(login_url='login')
 def account(request):
-    user = User.objects.get(full_name=request.user)
+    user = User.objects.get(email=request.user.email)
     address = None
     try:
         address = Address.objects.filter(user=user).first()
@@ -225,7 +225,6 @@ def account(request):
 @login_required(login_url='login')
 def edit_profile(request):
 
-    user = User.objects.get(email=request.user.email)
     address = Address.objects.filter(user=request.user)
     msg = ''
     show = 0
@@ -239,14 +238,14 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
 
-        name = request.POST.get('name', '')
-        email = request.POST.get('email', '')
-        phone = request.POST.get('phone', '')
+        name = request.POST.get('name', None)
+      
+        phone = request.POST.get('phone', None)
 
-        # print(name, email, phone)
-        if name and email and phone:
+ 
+        if name and phone:
+            print(name,phone)
             user.full_name = name
-            user.email = email
             user.number = phone
             user.save()
             msg = 'User data saved'
@@ -325,6 +324,15 @@ def like_product(request, key):
     
     product = Product.objects.get(id=key)
     product.likes  += 1 
+    product.save()
+
+    return redirect('product', key)
+
+
+def dislike_product(request, key):
+    
+    product = Product.objects.get(id=key)
+    product.dislikes  += 1 
     product.save()
 
     return redirect('product', key)
