@@ -39,6 +39,13 @@ def register(request):
         email = request.POST.get('email', '')
         pass1 = request.POST.get('pass1', '')
         pass2 = request.POST.get('pass2', '')
+        try:
+            usr_obj = User.objects.get(email = email)
+            if usr_obj: 
+                return render(request, 'register.html', {'val': True, 'msg': 'Email Taken !'})
+        except:
+            pass
+
 
         if full_name != '' and email != '' and pass1 != pass2:
             return render(request, 'register.html', {'val': True, 'msg': 'Fill all fields !'})
@@ -47,7 +54,8 @@ def register(request):
             return render(request, 'register.html', {'val': True, 'msg': 'passwords are different !'})
 
         else:
-            user_obj = User(full_name=full_name, email=email)
+            print(full_name, email, pass1)
+            user_obj = User.objects.create(full_name=full_name, email=email, username = full_name+'+'+email)
             user_obj.set_password(pass1)
             user_obj.save()
             login(request, user_obj)
@@ -174,7 +182,7 @@ def add_to_cart(request, key):
 
 @login_required(login_url='login')
 def remove_from_cart(request, key):
-    item = Cart_item.objects.get(product__id=key)
+    item = Cart_item.objects.filter(product__id=key).first()
     if item:
         item.delete()
         # return HttpResponse('product removed')
@@ -310,3 +318,13 @@ def review(request, key):
 
     context = {'show': show, 'msg': msg, 'form':form}
     return render(request, 'reviewForm.html', context)
+
+
+
+def like_product(request, key):
+    
+    product = Product.objects.get(id=key)
+    product.likes  += 1 
+    product.save()
+
+    return redirect('product', key)

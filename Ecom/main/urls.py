@@ -25,6 +25,7 @@ urlpatterns = [
     path('remove_from_cart/<int:key>/',
          views.remove_from_cart, name='remove_from_cart'),
     path('product-view/<int:key>/', views.product, name='product'),
+    path('product-like/<int:key>/', views.like_product, name='product-like'),
 
     path('category/<str:type>/', views.category_list, name='category'),
 

@@ -50,7 +50,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=30)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     max_price = models.CharField(max_length=10)
@@ -64,17 +64,22 @@ class Product(models.Model):
 
     stock = models.PositiveBigIntegerField()
     likes = models.PositiveBigIntegerField(null=True)
-    dislikes = models.PositiveBigIntegerField(null=True)
+    dislikes = models.PositiveBigIntegerField(default=0)
     # rating = models.PositiveIntegerField()
 
     total_orders = models.PositiveIntegerField(null=True)
 
     def __str__(self):
-        return str(self.name) + str(self.current_price)
+        # return str(self.name) + str(self.current_price)
+        return str(self.description[0:350])
+    
+    # def name_short(self):
+    #     return str(self.name[0:30])
+    
 
 
 class Cart_item(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.PositiveIntegerField(default=1)
 
     created = models.DateTimeField(auto_now_add=True)
