@@ -34,6 +34,7 @@ urlpatterns = [
     path('new_category/', views.new_category_list, name='new_category'),
 
     path('payment/<int:key>/', views.payment, name='payment'),
+    path('order_summary/<int:key>/', views.order_summary, name='order_summary'),
 
 
 

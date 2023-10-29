@@ -337,17 +337,114 @@ def dislike_product(request, key):
 
     return redirect('product', key)
 
-
 import razorpay
 from django.conf import settings
+from .forms import AddressForm
 client = razorpay.Client(auth=(settings.RAZOR_KEY, settings.RAZOR_SECRET))
-def payment(request, key): 
-    product = Product.objects.get(id=key)
-    
 
+def order_summary(request, key):
+    product = Product.objects.get(id=key)
+    address = Address.objects.filter(user__email = request.user.email)
+
+    q = request.GET.get('q')
+    q = q if q != None else ''
+    selected_address = None
+    msg = ''
+    show = 0
+
+    if q != '': 
+        selected_address = Address.objects.get(id =int(q))
+    else:
+        selected_address = address.first()
+    street = None
+    area = None
+    city = None
+    state = None
+    country = None
+    pin = None
+
+    if request.method =='POST':
+        street = request.POST.get('street' )
+        area = request.POST.get('area')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        country = request.POST.get('country')
+        pin = request.POST.get('pin')
+
+        if street and area and city and state and country and pin:
+            adrs_obj,created  = Address.objects.get_or_create(
+                street=street, area=area, city=city, state=state, country=country, pin=pin, user=request.user)
+            adrs_obj.save()
+
+            try:
+                order = Order.objects.create(address = adrs_obj, payment_method = 'cod', user = request.user, status = 'processing', product = product)
+                order.save()
+
+            except: 
+                msg = "one order already have with this address"
+                show = 1
+
+            msg = 'order placed via cod'
+            show = 1
+
+            
+        
+        else:
+            msg = 'please fill all fields !'
+            show = 1
+
+        
+
+
+      
+
+    payment_id = request.GET.get('payment_id')
+    order_id = request.GET.get('order_id')
+    signature = request.GET.get('signature')
+    
+  
+
+    if payment_id and order_id: 
+        order = Order.objects.create(payment_id = payment_id, order_id=order_id, 
+                                        signature=signature,address = selected_address, 
+                                            payment_method = 'upi', user = request.user, status = 'processing', product = product)
+        order.save()
+        msg = 'Order placed'
+        show = 1
+        
+      
+
+
+
+        
+               
+
+
+            
+
+        
+  
     data = { "amount": int(product.current_price)*100, "currency": "INR", "receipt": "order_rcptid_11" , 'payment_capture':1}
     payment = client.order.create(data=data)
 
-    context = {'payment' : payment, 'order_id': payment['id']}
+    context = {'payment' : payment, 'order_id': payment['id'],'address':address, 'selected_address':selected_address, 'key':key, 'show':show, 'msg':msg}    
+    return render(request, 'order_summary.html',context)
 
+
+
+
+import razorpay
+from django.conf import settings
+from .forms import AddressForm
+client = razorpay.Client(auth=(settings.RAZOR_KEY, settings.RAZOR_SECRET))
+
+def payment(request, key): 
+
+    product = Product.objects.get(id=key)
+  
+    data = { "amount": int(product.current_price)*100, "currency": "INR", "receipt": "order_rcptid_11" , 'payment_capture':1}
+    payment = client.order.create(data=data)
+
+
+    context = {'payment' : payment, 'order_id': payment['id']}
     return render(request, 'payment.html', context)

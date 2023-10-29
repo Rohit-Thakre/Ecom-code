@@ -79,7 +79,7 @@ class Product(models.Model):
 
 
 class Cart_item(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
     count = models.PositiveIntegerField(default=1)
 
     created = models.DateTimeField(auto_now_add=True)
@@ -91,6 +91,12 @@ class Cart_item(models.Model):
 
 
 class Order(models.Model):
+
+    payment_id = models.CharField(max_length=50, null=True)
+    order_id = models.CharField(max_length=50,null=True)
+    signature = models.CharField(max_length=50, null=True)
+
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True)
     payment_CHOICES = (
         ('upi', 'upi'),
         ('cod', 'cash on delivery'),
