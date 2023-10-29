@@ -328,3 +328,26 @@ def like_product(request, key):
     product.save()
 
     return redirect('product', key)
+
+def dislike_product(request, key):
+    
+    product = Product.objects.get(id=key)
+    product.dislikes  += 1 
+    product.save()
+
+    return redirect('product', key)
+
+
+import razorpay
+from django.conf import settings
+client = razorpay.Client(auth=(settings.RAZOR_KEY, settings.RAZOR_SECRET))
+def payment(request, key): 
+    product = Product.objects.get(id=key)
+    
+
+    data = { "amount": int(product.current_price)*100, "currency": "INR", "receipt": "order_rcptid_11" , 'payment_capture':1}
+    payment = client.order.create(data=data)
+
+    context = {'payment' : payment, 'order_id': payment['id']}
+
+    return render(request, 'payment.html', context)

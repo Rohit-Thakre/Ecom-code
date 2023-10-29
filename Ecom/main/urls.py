@@ -26,11 +26,14 @@ urlpatterns = [
          views.remove_from_cart, name='remove_from_cart'),
     path('product-view/<int:key>/', views.product, name='product'),
     path('product-like/<int:key>/', views.like_product, name='product-like'),
+    path('product-dislike/<int:key>/', views.dislike_product, name='product-dislike'),
 
     path('category/<str:type>/', views.category_list, name='category'),
 
 
     path('new_category/', views.new_category_list, name='new_category'),
+
+    path('payment/<int:key>/', views.payment, name='payment'),
 
 
 
