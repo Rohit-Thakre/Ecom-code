@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Product, Review
+from .models import User, Product, Review, Address
 from django.contrib.auth.forms import UserCreationForm
 
 class ReviewForm(forms.ModelForm):
@@ -46,3 +46,17 @@ class UserForm(forms.ModelForm):
 
 
         
+
+class AddressForm(forms.ModelForm): 
+
+    class Meta:
+        model = Address
+        fields = ['street', 'area','city', 'state', 'country', 'pin']
+        widgets = {
+            'street' : forms.TextInput(attrs={'class':'form-control', 'required': 'required'}),
+            'area' : forms.TextInput(attrs={'class':'form-control', 'required': 'required'}),
+            'city' : forms.TextInput(attrs={'class':'form-control', 'required': 'required'}),
+            'state' : forms.TextInput(attrs={'class':'form-control', 'required': 'required'}),
+            'country' : forms.TextInput(attrs={'class':'form-control', 'required': 'required'}),
+            'pin' : forms.TextInput(attrs={'class':'form-control', 'required': 'required'}),
+        }
