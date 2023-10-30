@@ -33,8 +33,14 @@ urlpatterns = [
 
     path('new_category/', views.new_category_list, name='new_category'),
 
-    path('payment/<int:key>/', views.payment, name='payment'),
-    path('order_summary/<int:key>/', views.order_summary, name='order_summary'),
+    # path('payment/<int:product_id>/<int:address_id>/', views.payment, name='payment'),
+    # path('order_summary/<int:key>/', views.order_summary, name='order_summary'),
+    
+    path('order_address/<int:key>/', views.order_address, name='order_address'),
+
+    path('payment_method/<int:product_id>/<int:address_id>/', views.payment_method, name='payment_method'),
+    path('cod/<int:product_id>/<int:address_id>/', views.cod, name='cod'),
+    # path('upi/<int:product_id>/<int:address_id>/', views.upi, name='upi'),
 
 
 

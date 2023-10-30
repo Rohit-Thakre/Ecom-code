@@ -92,8 +92,8 @@ class Cart_item(models.Model):
 
 class Order(models.Model):
 
-    payment_id = models.CharField(max_length=50, null=True)
-    order_id = models.CharField(max_length=50,null=True)
+    payment_id = models.CharField(max_length=50, null=True, unique=True)
+    order_id = models.CharField(max_length=50,null=True, unique=True)
     signature = models.CharField(max_length=50, null=True)
 
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True)
