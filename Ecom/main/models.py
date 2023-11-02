@@ -119,10 +119,15 @@ class Order(models.Model):
         return str(self.user) + str(Product)
 
 
+
+
+
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField()
-    img = models.ImageField(upload_to='review/', null=True, blank=True)
+    # img = models.ImageField(upload_to='review/', null=True, blank=True)
+    # image = models.ForeignKey(Review_image, on_delete=models.CASCADE)
+
     rating = models.PositiveIntegerField()
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     likes = models.PositiveIntegerField(default=0)
@@ -132,7 +137,21 @@ class Review(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.user) + str(self.product)
+        # return str(self.user) + str(self.product)
+        return str(self.id)
+
+
+class Review_image(models.Model):
+    review = models.ForeignKey(Review, on_delete= models.CASCADE)
+    image = models.ImageField(upload_to='review/', null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return str(self.image)
+
 
 
 class Banner(models.Model):

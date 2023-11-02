@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
-from .models import User, Order, Review, Address, Category, Product, Cart_item, Banner
+from .models import Review_image, User, Order, Review, Address, Category, Product, Cart_item, Banner
 from django.contrib.auth.decorators import login_required
 
 
@@ -195,8 +195,14 @@ def product(request, key):
     products = Product.objects.all()
     off = int(product.max_price) - int(product.current_price)
     reviews = Review.objects.filter(product=product)
+
+    for review in reviews: 
+        review.image = Review_image.objects.filter(review= review)
+    
+
     context = {'product': product, 'reviews': reviews,
                'off': off, 'products': products}
+    
     return render(request, 'product-view.html', context)
 
 def category_list(request, type):
@@ -290,32 +296,43 @@ def new_category_list(request):
     context = {'products': products}
     return render(request, 'product-list.html', context)
 
-from .forms import ReviewForm
+# from .forms import ReviewForm
 @login_required(login_url='login')
 def review(request, key):
 
     show = 0
     msg = ''
-    form = ReviewForm()
+    # form = ReviewForm()
     product = Product.objects.get(id=key)
 
 
     if request.method == 'POST':
+        images = request.FILES.getlist('image')
         text = request.POST.get('text', '')
         rate = request.POST.get('rate', 0)
 
         review_obj = Review.objects.create(text=text, rating=rate, product = product,user= request.user)
         review_obj.save()
 
-        form = ReviewForm(request.POST, request.FILES, instance=review_obj)
+        for image in images:
+            review_image = Review_image.objects.create(image = image, user = request.user, review = review_obj)
+            review_image.save()
 
-        if form.is_valid():
-            form.save()
+
+
+            
+
+
+
+        # form = ReviewForm(request.POST, request.FILES, instance=review_obj)
+
+        # if form.is_valid():
+        #     form.save()
 
         show = 1
         msg = 'Review Added.'
 
-    context = {'show': show, 'msg': msg, 'form':form}
+    context = {'show': show, 'msg': msg}
     return render(request, 'reviewForm.html', context)
 
 
