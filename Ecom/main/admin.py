@@ -22,7 +22,7 @@ class AdminCategory(admin.ModelAdmin):
 
 @admin.register(models.Banner)
 class AdminCategory(admin.ModelAdmin):
-    list_display = ['img', 'by', 'created',]
+    list_display = [ 'product','img', 'by', 'created',]
 
 
 @admin.register(models.Product)
