@@ -77,7 +77,7 @@ def add_product(request):
     category_list = Category.objects.all()
     show = 0
     msg = ''
-    form = ProductForm()
+    # form = ProductForm()
             
     if request.method == 'POST':
 
@@ -89,21 +89,23 @@ def add_product(request):
         stock = request.POST.get('stock', '')
         mrp = request.POST.get('mrp', '')
         selling_price = request.POST.get('selling_price', '')
-        img = request.POST.get('img', '')
+        # img = request.POST.get('img', '')
+        img = request.FILES.get('img')
         description = request.POST.get('description', '')
 
         product_obj = Product(name=product_name, category=obj, stock=stock,
-                              max_price=mrp, current_price=selling_price, image=img, description=description, merchant=request.user)
+                              max_price=mrp, current_price=selling_price, image=img, 
+                              description=description, merchant=request.user)
         product_obj.save()
 
-        form = ProductForm(request.POST, request.FILES, instance=product_obj)
-        if form.is_valid():
-            form.save()
+        # form = ProductForm(request.POST, request.FILES, instance=product_obj)
+        # if form.is_valid():
+        #     form.save()
 
         msg = 'product added.'
         show = 1
 
-    return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show, 'form':form})
+    return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show})
 
 from .forms import UserForm
 @login_required(login_url='login')
