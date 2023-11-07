@@ -147,7 +147,6 @@ RAZOR_SECRET = 'Z44sHCKBx9tULJTfyrHNKWv0'
 #--------------------- aws 
 AWS_ACCESS_KEY_ID = os.environ.get('s3_access_key')
 AWS_SECRET_ACCESS_KEY = os.environ.get('s3_secret_key')
-
 AWS_STORAGE_BUCKET_NAME = 'django-ecom-shop'
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = 'ap-south-1'
