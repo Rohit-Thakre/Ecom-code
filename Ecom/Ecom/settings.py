@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+
+    # aws
+     'storages',
 ]
 
 MIDDLEWARE = [
@@ -130,10 +133,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # changes made
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = BASE_DIR/'media'
 
 AUTH_USER_MODEL = 'main.User'
 
 
 RAZOR_KEY = 'rzp_test_lBWJYMZSnmhS53'
 RAZOR_SECRET = 'Z44sHCKBx9tULJTfyrHNKWv0'
+
+
+
+
+#--------------------- aws 
+AWS_ACCESS_KEY_ID = os.environ.get('s3_access_key')
+AWS_SECRET_ACCESS_KEY = os.environ.get('s3_secret_key')
+
+AWS_STORAGE_BUCKET_NAME = 'django-ecom-shop'
+AWS_S3_SIGNATURE_NAME = 's3v4',
+AWS_S3_REGION_NAME = 'ap-south-1'
+AWS_S3_FILE_OVERWRITE = True
+AWS_DEFAULT_ACL =  None
+AWS_S3_VERITY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

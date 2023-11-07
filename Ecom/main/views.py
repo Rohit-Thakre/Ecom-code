@@ -81,22 +81,24 @@ def add_product(request):
             
     if request.method == 'POST':
 
-        
-
         product_name = request.POST.get('product_name', '')
         category = request.POST.get('category', '')
         obj, craeted = Category.objects.get_or_create(type=category)
         stock = request.POST.get('stock', '')
         mrp = request.POST.get('mrp', '')
         selling_price = request.POST.get('selling_price', '')
-        # img = request.POST.get('img', '')
         img = request.FILES.get('img')
+        banner_img = request.FILES.get('banner_img')
         description = request.POST.get('description', '')
 
         product_obj = Product(name=product_name, category=obj, stock=stock,
                               max_price=mrp, current_price=selling_price, image=img, 
                               description=description, merchant=request.user)
         product_obj.save()
+
+        if banner_img: 
+            banner = Banner.objects.create(user = request.user, img = banner_img,product = product_obj)
+            banner.save()
 
         # form = ProductForm(request.POST, request.FILES, instance=product_obj)
         # if form.is_valid():
