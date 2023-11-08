@@ -40,7 +40,7 @@ def register(request):
         pass1 = request.POST.get('pass1', '')
         pass2 = request.POST.get('pass2', '')
         try:
-            usr_obj = User.objects.get(email = email)
+            usr_obj = User.objects.filter(email = email).first()
             if usr_obj: 
                 return render(request, 'register.html', {'val': True, 'msg': 'Email Taken !'})
         except:
@@ -116,7 +116,7 @@ def be_merchant(request):
     show = 0
     msg = ''
 
-    user = User.objects.get(email = request.user.email)
+    user = User.objects.filter(email = request.user.email).first()
     form = UserForm(instance=user)
     
     if request.method == 'POST':
@@ -142,7 +142,7 @@ def be_merchant(request):
             user=request.user, street=street, area=area, city=city, country=country, pin=pin, state=state)
         address_instance.save()
 
-        user_instance = User.objects.get(email=request.user.email)
+        user_instance = User.objects.filter(email=request.user.email).first()
         user_instance.age = age
         # print(avatar)
         # if avatar:
@@ -220,7 +220,7 @@ def category_list(request, type):
 
 @login_required(login_url='login')
 def account(request):
-    user = User.objects.get(email=request.user.email)
+    user = User.objects.filter(email=request.user.email).first()
     address = None
     try:
         address = Address.objects.filter(user=user).first()
@@ -239,7 +239,7 @@ def edit_profile(request):
     msg = ''
     show = 0
 
-    user = User.objects.get(email = request.user.email)
+    user = User.objects.filter(email = request.user.email).first()
     form = UserForm(instance=user)
     
     if request.method == 'POST':

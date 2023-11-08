@@ -5,7 +5,7 @@ from . import models
 
 @admin.register(models.User)
 class AdminUser(admin.ModelAdmin):
-    list_display = ['full_name', 'email', 'number',
+    list_display = ['id','first_name','last_name', 'email', 'number',
                     'verified', 'age', 'merchant', 'avatar']
 
 

@@ -4,8 +4,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    full_name = models.CharField(max_length=150, null=True, blank=True)
-    email = models.EmailField(unique=True)
+    # full_name = models.CharField(max_length=150, null=True, blank=True)
+    email = models.EmailField(unique=False)
 
     number = models.CharField(max_length=15, null=True, blank=True)
     verified = models.BooleanField(default=False)
@@ -15,10 +15,13 @@ class User(AbstractUser):
         null=True, default="user/avatar.jpg", upload_to='user/')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'full_name']
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self) -> str:
-        return str(self.full_name)
+        if self.username : 
+            return self.username
+        else:
+            return str(self.first_name) + str(self.last_name)
 
 
 class Address(models.Model):

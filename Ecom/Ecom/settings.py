@@ -39,9 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'user',
 
     # aws
-     'storages',
+    'storages',
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +62,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+      # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'Ecom.urls'
@@ -60,7 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'Ecom-Template' / 'code',
-                 #  BASE_DIR / 'templates',
+                #   BASE_DIR / 'templates',
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -69,6 +82,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -138,10 +155,8 @@ MEDIA_ROOT = BASE_DIR/'media'
 AUTH_USER_MODEL = 'main.User'
 
 
-RAZOR_KEY = 'rzp_test_lBWJYMZSnmhS53'
-RAZOR_SECRET = 'Z44sHCKBx9tULJTfyrHNKWv0'
-
-
+RAZOR_KEY = os.environ.get('razor_pub')
+RAZOR_SECRET = os.environ.get('razor_secret')
 
 
 #--------------------- aws 
@@ -154,3 +169,60 @@ AWS_S3_FILE_OVERWRITE = True
 AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
+
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            "client_id": os.environ.get('google_client'),
+            "secret": os.environ.get('google_secret'),
+            
+            "key": "123"
+        }
+    },
+
+    
+    'github': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            "client_id": os.environ.get('github_pub'),
+            "secret": os.environ.get('github_secret'),
+            
+            "key": "123"
+        }
+    },
+
+    'facebook': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            "client_id": 123,
+            "secret": 456,
+            
+            "key": "123"
+        }
+    },
+   
+}
+
+
+LOGIN_REDIRECT_URL = '/'
