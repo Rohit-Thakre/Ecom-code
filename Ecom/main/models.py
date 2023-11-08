@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     # full_name = models.CharField(max_length=150, null=True, blank=True)
-    email = models.EmailField(unique=False)
+    email = models.EmailField(unique=True)
 
     number = models.CharField(max_length=15, null=True, blank=True)
     verified = models.BooleanField(default=False)

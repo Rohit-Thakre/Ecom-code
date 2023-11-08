@@ -227,6 +227,9 @@ def account(request):
     except:
         pass
     orders = Order.objects.filter(user=request.user)
+    user.email = request.user.email
+    print("----------------------",request.user.email, "\n user : ",user)
+    user.save()
 
     context = {'user': user, 'address': address, 'orders': orders}
 
