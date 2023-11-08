@@ -47,7 +47,6 @@ def register_method(request):
             usr_obj = User.objects.get(email = email)
 
             if usr_obj: 
-                print('email taken')
                 return render(request, 'user/register.html', {'val': True, 'msg': 'Email Taken !'})
         
 
@@ -72,8 +71,6 @@ def check_otp(request):
         email = request.POST.get('email')
         otp = request.POST.get('otp')
 
-        print('generated otp : ', otp_gen)
-            
 
         global user_obj
         user_obj = User.objects.filter(email = email)
@@ -84,17 +81,13 @@ def check_otp(request):
 
         elif not otp: 
             send_mail_after_registration(email, otp_gen)
-            print('email send step tak aa rha hai')
             return render(request,'user/check_otp.html', {'otp' : True, 'email': email})
     
 
         elif otp_gen == int(otp) : 
-            print('password change page redirect----------')
             return redirect('password_change')
         
         else: 
-            print('otp_input \t otp_gen')
-            print(otp, otp_gen)
             return render(request, 'user/check_otp.html',{'val':True, 'msg':'Incorrect OTP!', 'otp': True, 'email':email} )
 
       
