@@ -144,17 +144,12 @@ def be_merchant(request):
 
         user_instance = User.objects.filter(email=request.user.email).first()
         user_instance.age = age
-        # print(avatar)
-        # if avatar:
-        #     user_instance.avatar = avatar
-        #     print('img set')
         user_instance.merchant = merchant
         user_instance.number = number
         user_instance.save()
         msg = 'Data Saved !'
         show = 1
 
-        # return redirect('merchant_details')
 
     context = {'address': address, 'msg': msg, 'show': show, 'form':form}
     return render(request, 'be_merchant_form.html', context)
@@ -189,7 +184,6 @@ def remove_from_cart(request, key):
     item = Cart_item.objects.filter(product__id=key).first()
     if item:
         item.delete()
-        # return HttpResponse('product removed')
     return redirect('cart')
 
 
@@ -210,9 +204,6 @@ def product(request, key):
     return render(request, 'product-view.html', context)
 
 def category_list(request, type):
-    # q = request.GET.get('q')
-    # q = q if q != None else ''
-    # print(q)
 
     products = Product.objects.filter(category__type__icontains=type)
     context = {'products': products}
@@ -227,9 +218,6 @@ def account(request):
     except:
         pass
     orders = Order.objects.filter(user=request.user)
-    user.email = request.user.email
-    print("----------------------",request.user.email, "\n user : ",user)
-    user.save()
 
     context = {'user': user, 'address': address, 'orders': orders}
 
@@ -278,7 +266,6 @@ def edit_profile(request):
             msg += 'Address saved'
             show = 1
         
-        # return redirect('edit_profile')
 
     context = {'user': user, 'address': address, 'msg': msg, 'show': show,'form':form}
     return render(request, 'edit_profile.html', context)
@@ -325,16 +312,6 @@ def review(request, key):
             review_image = Review_image.objects.create(image = image, user = request.user, review = review_obj)
             review_image.save()
 
-
-
-            
-
-
-
-        # form = ReviewForm(request.POST, request.FILES, instance=review_obj)
-
-        # if form.is_valid():
-        #     form.save()
 
         show = 1
         msg = 'Review Added.'
