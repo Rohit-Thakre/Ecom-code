@@ -186,22 +186,19 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
+
+        'SCOPE' : ['profile', 'email'],
         'APP': {
             "client_id": os.environ.get('google_client'),
             "secret": os.environ.get('google_secret'),
-            
             "key": "123"
         }
     },
 
     
     'github': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
+        'SCOPE' : ["user:email",],
+
         'APP': {
             "client_id": os.environ.get('github_pub'),
             "secret": os.environ.get('github_secret'),
@@ -211,9 +208,7 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 
     'facebook': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
+        'SCOPE' : ['profile', 'email'],
         'APP': {
             "client_id": 123,
             "secret": 456,
@@ -224,7 +219,7 @@ SOCIALACCOUNT_PROVIDERS = {
    
 }
 
-
+ACCOUNT_EMAIL_REQUIRED = True
 LOGIN_REDIRECT_URL = '/'
 
 
