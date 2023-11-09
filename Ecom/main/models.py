@@ -82,7 +82,7 @@ class Product(models.Model):
 
 
 class Cart_item(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.PositiveIntegerField(default=1)
 
     created = models.DateTimeField(auto_now_add=True)
