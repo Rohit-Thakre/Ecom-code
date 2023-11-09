@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+review-form
+{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+<div class="container mt-4 w-sm-75">
+    {% if  show %}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <strong>{{msg}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <div class="card text-center">
+
+        <h5 class="card-header p-3">Write Review</h5>
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- <h5 class="card-title">Special title treatment</h5> -->
+
+                <label for="image" class="form-label float-start">Select Image</label>
+                <input type="file" id="image" name="image" class="form-control" multiple>
+
+                <!-- {{form}} -->
+                <br>
+                <div class="form-group">
+                    <label for="rate1" class="form-label float-start">Rate Product</label>
+                    <input type="number" class="form-control" name="rate" id="rate1" placeholder="Enter your name"
+                        value="{{user.full_name}}" required max="5" min="0">
+                </div>
+
+                <div class="form-group mt-4">
+                    <label for="t1" class="form-label float-start">Description</label>
+                    <textarea name="text" id="t1" cols="30" rows="10" class="form-control mt-4 p-3"
+                        placeholder="Write your review here..."></textarea>
+                </div>
+
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-danger mt-4 mx-2 px-5 py-2" type=>Discard</a>
+                <input type="submit" value="Upload" class="btn btn-primary mt-4 mx-2  px-5 py-2">
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+{% endblock content %}

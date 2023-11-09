@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}
+add product
+{% endblock title %}
+
+
+
+{% block content %}
+
+
+
+<div class="container mt-4 w-sm-75">
+    {% if  show %}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <strong>{{msg}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <div class="card text-center">
+        <h5 class="card-header p-3">Product Details</h5>
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="product_name" class="form-label float-start">Product Name..</label>
+                <input required type="text" class=" form-control p-2" placeholder="Product Name..." name="product_name">
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <label for="category" class="form-label float-start">Category</label>
+                        <input required class="form-control p-2" list="category_list" name="category" id="category"
+                            placeholder=" Select Category">
+                    </div>
+
+                    <div class="col">
+                        <label for="stock" class="form-label float-start">Stock..</label>
+                        <input required class="form-control p-2" type="number" name="stock" id=""
+                            placeholder="Stock Available">
+                    </div>
+                </div>
+
+
+                <div class="row my-4">
+                    <div class="col">
+                        <label for="mrp" class="form-label float-start">Max Retail Price</label>
+                        <input required class="form-control  p-2" type="number" name="mrp" id=""
+                            placeholder="Max Retail Price..">
+                    </div>
+
+                    <div class="col">
+                        <label for="selling_price" class="form-label float-start">Selling Price</label>
+                        <input required class="form-control  p-2" type="number" name="selling_price" id=""
+                            placeholder="Selling Price..">
+                    </div>
+                </div>
+
+                <datalist id="category_list">
+
+                    {% for item in category_list %}
+                    <option value="{{item}}">
+                        {% endfor %}
+
+                </datalist>
+
+
+                <label for="img" class="form-label float-start">Product Image</label>
+                <input required type="file" id="img" name="img" class="form-control my-4 p-3 ">
+
+                <!-- {{form}} -->
+
+                <label for="description" class="form-label float-start">Description</label>
+                <textarea name="description" id="" cols="30" rows="10" class="form-control mt-4 p-3"
+                    placeholder="Write your description here..."></textarea>
+
+                <div class="div">
+                    <label for="banner_img" class="form-label float-start">Banner Image</label>
+                    <input type="file" id="banner_img" name="banner_img" class="form-control my-4 p-3 ">
+                </div>
+
+
+
+                <a href={{request.META.HTTP_REFERER}} class="btn btn-danger mt-4 mx-2 px-5 py-2">Discard</a>
+                <input required type="submit" value="Save" class="btn btn-primary mt-4 mx-2  px-5 py-2">
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock content %}

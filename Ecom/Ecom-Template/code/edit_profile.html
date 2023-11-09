@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+edit profile
+{% endblock title %}
+
+
+
+{% block content %}
+
+
+<div class="container mt-2">
+    {% if  show %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{msg}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="card">
+                <div class="card-header">
+                    Edit Profile
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Name input -->
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter your name"
+                                value="{{user.full_name}}" required>
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-group">
+                            {{form}}
+                            <!-- <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email"
+                                value="{{user.email}}" required> -->
+                        </div>
+                        <!-- Phone input -->
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="number" class="form-control" name="phone" placeholder="Enter your phone number"
+                                {% if user.number %} value="{{user.number}}" {% endif %} required>
+                        </div>
+                        <!-- Save button -->
+                        <button type=" submit" class="btn btn-primary mt-2">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6  ">
+            <div class="card">
+                <div class="card-header">
+                    Add New Address
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col">
+
+                                <div class="form-group">
+                                    <label for="street">Street</label>
+                                    <input type="text" class="form-control" name="street" placeholder="Street No."
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="City">City</label>
+                                    <input type="text" class="form-control" name="city" placeholder="City Name"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" name="country" placeholder="Country"
+                                        required>
+                                </div>
+                            </div>
+
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="area">Area</label>
+                                    <input type="text" class="form-control" name="area" placeholder="Area" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" name="state" placeholder="State" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Pin">Pin Code</label>
+                                    <input type="number" class="form-control" name="pin" placeholder="Postal Code"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% if address %}
+    <div class="row">
+        <table class="table mt-2">
+            <thead>
+                <tr>
+
+                    <th>Address </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for adrs in address %}
+                <tr>
+                    <td>
+                        {{adrs.street}},
+                        {{adrs.area}},
+                        {{adrs.city}},
+                        {{adrs.state}},
+                        {{adrs.country}},
+                        {{adrs.pin}}
+                    </td>
+
+                    <td>
+                        <a href="{% url 'remove_address' adrs.id %}" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

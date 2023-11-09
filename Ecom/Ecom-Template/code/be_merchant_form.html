@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+merchant-form
+{% endblock title %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="container mt-4 w-sm-75">
+
+    <div class="card text-center">
+        <h5 class="card-header p-3">Merchant Details</h5>
+
+        {% if  show %}
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <strong>{{msg}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <!-- <input type="file" id="myFile" name="avatar" class="form-control my-4 p-3 "> -->
+                <br>
+                <div class="row  row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <div class="form-check ">
+                            <input class="form-check-input " type="radio" name="merchant" id="merchant" required
+                                value="True">
+                            <label class="form-check-label" for="merchant">
+                                Be Merchant
+                            </label>
+                        </div>
+                        <div class="form-check ">
+                            <input class="form-check-input" type="radio" name="merchant" id="normal_user" checked
+                                required value="False">
+                            <label class="form-check-label" for="normal_user">
+                                Normal User
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col ">
+                        <input type="number" class="form-control mt-3 mt-md-0" name="age"
+                            placeholder="Enter Age here..." required value="{{request.user.age}}">
+                        <input type="number" class="form-control mt-3" name="phone" placeholder="Phone Number here..."
+                            required value="{{request.user.number}}">
+                    </div>
+
+                </div>
+
+
+
+
+                <h3 class="text-start mt-2">Address:</h3>
+                <div class="row mt-3 row-cols-1 row-cols-md-2 ">
+                    <div class="col">
+                        <input type="text" class=" form-control mt-2" name="street" placeholder="Street..." required
+                            value="{{address.street}}">
+                        <input type="text" class=" form-control mt-2" name="area" placeholder="Area..." required
+                            value="{{address.area}}">
+                        <input type="text" class=" form-control mt-3" name="city" placeholder="City..." required
+                            value="{{address.city}}">
+                    </div>
+
+                    <div class="col">
+                        <input type="number" class="form-control  mt-2" name="pin" placeholder="Pin Code..." required
+                            value="{{address.pin}}">
+                        <input type="text" class="form-control  mt-2" name="state" placeholder="State..." required
+                            value="{{address.state}}">
+                        <input type="text" class="form-control mt-3" name="country" placeholder="Country..." required
+                            value="{{address.country}}">
+                    </div>
+                </div>
+
+
+
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-danger mt-4 mx-2 px-5 py-2" type=>Discard</a>
+                <!-- <a href="#" class="btn btn-primary mt-4 mx-2  px-5 py-2" type="submit">Save</a> -->
+                <input type="submit" value="Save" class=" btn btn-primary mt-4 mx-2 px-5 py-2">
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock content %}

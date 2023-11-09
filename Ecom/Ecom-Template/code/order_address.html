@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+order_summary
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Address</th>
+                    <th>Pin</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for adrs in address %}
+                <tr>
+                    <td>
+                        <a href="{% url 'order_address' key %}?q={{adrs.id}}">{{adrs.street}},{{adrs.city}},{{adrs.state}},
+                            {{adrs.country}}
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="">
+                            {{adrs.pin}}
+                        </a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+
+        <form action="" method="POST" class="form-control justify-content-center" id="payment_method">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+
+                    <div class="form-group">
+                        <label for="street">Street</label>
+                        <input type="text" class="form-control" name="street" placeholder="Street No." required
+                            value="{{selected_address.street}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="City">City</label>
+                        <input type="text" class="form-control" name="city" placeholder="City Name" required
+                            value="{{selected_address.city}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" name="country" placeholder="Country" required
+                            value="{{selected_address.country}}">
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="area">Area</label>
+                        <input type="text" class="form-control" name="area" placeholder="Area" required
+                            value="{{selected_address.area}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" name="state" placeholder="State" required
+                            value="{{selected_address.state}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Pin">Pin Code</label>
+                        <input type="number" class="form-control" name="pin" placeholder="Postal Code" required
+                            value="{{selected_address.pin}}">
+                    </div>
+                </div>
+
+                <p class="text-center mt-3 mb-0">
+                    <button class="btn btn-primary" type="submit">Save and
+                        Next</button>
+                </p>
+        </form>
+    </div>
+
+</div>
+{% endblock content %}

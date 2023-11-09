@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+home
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+<!-- carousel start -->
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+        {% for banner in banners %}
+        <div class="carousel-item 
+        {% if forloop.counter0 == 0 %} active {% endif %}
+            " data-bs-interval="2000">
+            <a href="{% url 'product' banner.product.id %}">
+
+                <img src="{{banner.img.url}}" class="d-block w-100 bg-primary" alt="..." height="400px">
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!-- carousel end -->
+<div class="container">
+
+    <div class="row gy-3 mt-3">
+        <!-- col start -->
+        <div class="col">
+            <div class="card shadow">
+                <img src="https://images.macrumors.com/t/hpdbb62JNiaVXC8D9x0LyQ-O8E4=/1600x0/filters:quality(90)/article-new/2017/09/iosxinterface-800x633.jpg"
+                    class="card-img" alt="..." width="150px" height="250px">
+                <div class="card-body align-items-center">
+                    <h5 class="card-title">Mobiles</h5>
+                    <a href="{% url 'category' 'mobile' %}" class="btn btn-primary mx-auto w-100">View</a>
+                </div>
+            </div>
+        </div>
+        <!-- col end -->
+
+        <!-- col start -->
+        <div class="col">
+            <div class="card">
+                <img src="https://th.bing.com/th/id/R.8c30240037e865c8d51740d3081ed472?rik=VAXoOFV8dtGVEg&riu=http%3a%2f%2fbrain-images.cdn.dixons.com%2f2%2f2%2f10164722%2fu_10164722.jpg&ehk=rVGOBsZxfHG1cDENamYlZBBGVjYp4ecoPVWIADD6ZPQ%3d&risl=&pid=ImgRaw&r=0"
+                    class="card-img" alt="..." width="150px" height="250px">
+                <div class="card-body align-items-center">
+                    <h5 class="card-title">Laptops</h5>
+                    <a href="{% url 'category' 'laptop' %}" class="btn btn-primary w-100">View</a>
+                </div>
+            </div>
+        </div>
+        <!-- col end -->
+
+        <!-- col start -->
+        <div class="col">
+            <div class="card">
+                <img src="https://kiasuplumber.com/wp-content/uploads/2017/09/Fotolia_132614085_Subscription_Monthly_M-1024x768.jpg"
+                    class=" card-img" alt="..." width="150px" height="250px">
+                <div class="card-body align-items-center">
+                    <h5 class="card-title">Appliances</h5>
+                    <a href="{% url 'category' 'appliances' %}" class="btn btn-primary w-100">View</a>
+                </div>
+            </div>
+        </div>
+        <!-- col end -->
+
+        <!-- col start -->
+        <div class="col">
+            <div class="card">
+                <img src="https://pluspng.com/img-png/grocery-items-png-enjoy-online-grocery-shopping-in-bhubaneswar-with-4-easy-steps-click-submit-pay-and-pick-up-2362.jpg"
+                    class="card-img" alt="..." width="150px" height="250px">
+                <div class="card-body align-items-center">
+                    <h5 class="card-title">Grocery</h5>
+                    <a href="{% url 'category' 'grocery' %}" class="btn btn-primary w-100">View</a>
+                </div>
+            </div>
+        </div>
+        <!-- col end -->
+
+
+
+    </div>
+
+
+    <!-- products  -->
+    <div class="row  mt-5">
+        <div class="col-3 d-none d-sm-block " style="height: 500px; ">
+            <h2 class="text-center text-uppercase mt-2">Catergory</h2>
+            <hr>
+            <ul style="list-style-type: none;" class="">
+                <li>
+                    <a href="{% url 'category'  'mobile' %}" class="btn btn-primary w-100 my-2 p-3 ">Mobiles</a>
+                </li>
+                <li>
+                    <a href="{% url 'category' 'laptop' %}" class="btn btn-primary w-100 my-2 p-3">Laptops</a>
+                </li>
+                <li>
+                    <a href="{% url 'category' 'electronics' %}" class="btn btn-primary w-100 my-2 p-3">Electronic</a>
+                </li>
+                <li>
+                    <a href="{% url 'category' 'shoes' %}" class="btn btn-primary w-100 my-2 p-3">Shoes</a>
+                </li>
+                <li>
+                    <a href="{% url 'category' 'beauty' %}" class="btn btn-primary w-100 my-2 p-3">Beauty</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="col" style="height: 90vh; overflow-y: scroll;">
+            <div class="container m-0 p-0">
+                <div class="row  row-cols-md-4 row-cols-2 g-3">
+
+
+                    {% for product in products %}
+
+                    <div class="col">
+                        <div class="card shadow">
+                            <img src="{{product.image.url}}" class="card-img ms-md-2" alt="..."
+                                style="height: 200px; width: 170px;">
+
+                            <div class="card-body align-items-center">
+                                <h6 class="card-title " style="height: 40px;">{{product.name}}</h6>
+                                <a href="{% url 'product' product.id %}" class="btn btn-primary mx-auto w-100 ">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+
+    </div><!-- products end -->
+
+</div> <!-- main container end -->
+
+
+{% endblock content %}

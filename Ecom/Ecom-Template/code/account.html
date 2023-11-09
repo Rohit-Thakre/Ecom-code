@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+account
+{% endblock title %}
+
+
+
+{% block content %}
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="card">
+                <div class="card-header text-center h5">Account</div>
+                <div class=" text-center">
+                    <img class="rounded-circle bg-danger mx-auto " src="{{user.avatar.url}}" alt="img"
+                        style="width: 100px; height: 100px;">
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Your Profile</h5>
+                    <p class="card-text">
+                        <strong>Name:</strong> {{user}}<br>
+                        <strong>Email:</strong> {{user.email}}<br>
+                        <strong>Phone:</strong> {{user.number}} <br>
+                        <hr>
+                        <strong>Street:</strong> {{address.street}} <br>
+                        <strong>Area:</strong> {{address.area}}<br>
+                        <strong>City:</strong> {{address.city}} <br>
+                        <strong>State:</strong> {{address.state}}<br>
+                        <strong>Pin:</strong> {{address.pin}}<br>
+
+                    </p>
+                    <div class="btn_grp  text-center">
+                        <a href="{% url 'edit_profile' %}" class="btn btn-primary mx-2">Edit
+                            Profile</a>
+                        <a href="{% url 'merchant_details' %}" class="btn btn-warning mx-2">Be Merchant
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    Order History
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th>Product </th>
+                                <th>Order Date</th>
+                                <th>Payment <br> Method</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'product' order.product.id %}" style="text-decoration: none;">
+                                        <img src="{{order.product.image.url}}" alt="img"
+                                            style="width: 50px; height: 50px; border-radius: 5px;">
+                                        {{order.product.name}}
+                                    </a>
+                                </td>
+
+                                <td>{{order.created}}</td>
+
+                                <td>{{order.payment_method}}</td>
+
+                                <td>{{order.status}}</td>
+
+
+                                <td>{{order.product.current_price}}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

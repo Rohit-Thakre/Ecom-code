@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+product-list
+{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- filter col -->
+        <!-- 
+        <div class="col-lg-3 col-md-4  d-none d-sm-block">
+
+            <div class="container-fluid">
+                <h3 class="text-center mt-2">Filter <i class="fa-sharp fa-solid fa-filter"></i></h3>
+
+                <div class="row row-cols-md-2 row-cols-lg-4 shadow my-3 rounded-3">
+                    <h4 class="w-100">RAM</h4>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">3GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">4GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">6GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">8GB</a>
+                    </div>
+
+                </div>
+
+
+                <div class="row row-cols-md-2 row-cols-lg-4 shadow my-4 rounded-3">
+                    <h4 class="w-100">ROM</h4>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">4GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">8GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-2 py-2 rounded-pill">16GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-2 py-2 rounded-pill">32GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-2 py-2 rounded-pill">64GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-1 py-2 rounded-pill">128GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-1 py-2 rounded-pill">256GB</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-1 py-2 rounded-pill">512GB</a>
+                    </div>
+
+                </div>
+
+                <div class="row row-cols-md-2 row-cols-lg-3 shadow my-4 rounded-3 p-2">
+                    <h4 class="w-100">Brand</h4>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-3 py-2 rounded-pill">Redmi</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-3 px-lg-3 py-2 rounded-pill">Realme</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">Oppo</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">Vivo</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">Vivo</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">Moto</a>
+                    </div>
+                    <div class="col-lg-3 my-3 "><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">1+</a>
+                    </div>
+
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">Apple</a>
+                    </div>
+                    <div class="col my-3"><a href=""
+                            class="bg-primary text-white px-md-4 px-lg-3 py-2 rounded-pill">Samsung</a>
+                    </div>
+
+                </div>
+
+                <div class="row shadow my-3 rounded-3">
+                    <div class="col p-3">
+                        <input class="form-range mb-3" type="range" name="rangeInput1" min="0" max="100000" step="5000"
+                            onchange="updateTextInput(this.value, 'textInput1');">
+                        <div class="input-group rounded-5">
+                            <span class="input-group-text">$</span>
+                            <input class="form-control text-center" type="number" id="textInput1" value="50000"
+                                step="5000" min="5000" max="100000">
+                            <span class="input-group-text">.00</span>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+         -->
+        <!-- filter col end -->
+
+        <!-- produsts list col -->
+        <div class="col">
+
+            <!-- repeat to gen multiple row -->
+
+            {% for product in products %}
+
+            <div class="container p-2">
+                <div class="row rounded-3 shadow">
+
+                    <div class="col-5 col-sm-3  ps-lg-4">
+                        <img src="{{product.image.url}}" alt="" height="150px" width="150px">
+
+
+                    </div>
+
+                    <div class=" col-7 col-sm-7">
+                        <h3 class="" style="height: 60px;">{{product.name}}</h3>
+                        <p class="d-none d-sm-block">{{product.description |slice:"0:200"}}</p>
+
+                        <!-- <p class="d-none d-sm-block">
+                            sm hiden
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia reprehenderit mollitia porro
+                            nisi, nemo laudantium earum fugiat est assumenda repellat eveniet adipisci consectetur quas
+                            quibusdam autem, laboriosam, vel magnam sed!
+                        </p> -->
+
+                        <div class="buy d-block d-sm-none">
+
+                            <h4> <del class="text-muted">{{product.max_price}}</del> {{product.current_price}}</h4>
+                            <!-- <p class="text-secondary">Item left : 15</p> -->
+                            <a href="{% url 'product' product.id %}" class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
+                            <a href="{% url 'add_to_cart' product.id %}"
+                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-2  d-none d-sm-block p-2">
+                        <h4>{{product.current_price}}</h4>
+                        <h5><del class="text-muted">{{product.max_price}}</del></h5>
+                        <p class="text-secondary">Item left : 15</p>
+                        <div class="mt-2">
+                            <!-- <button class="btn btn-success px-4 mb-2 rounded-3">Buy</button>
+                                    <button class="btn btn-primary  px-4 mb-2">cart</button> -->
+                            <a href="{% url 'product' product.id %}" class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
+                            <a href="{% url 'add_to_cart' product.id %}"
+                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% empty %}
+            <h2 class="text-center  mt-5">Sorry no products available for this category</h2>
+            <p class="text-center">We also have different Products available you might be intrested in <a
+                    href="{% url 'home' %}">View</a>
+            </p>
+            {% endfor %}
+
+            <!-- gen row end -->
+
+
+        </div>
+        <!-- products list col end -->
+    </div>
+</div>
+
+<script>
+    function updateTextInput(val, elId) {
+        document.getElementById('textInput1').value = val;
+    }
+</script>
+
+{% endblock content %}

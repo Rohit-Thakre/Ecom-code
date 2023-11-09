@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}
+cart
+{% endblock title %}
+
+
+
+{% block content %}
+
+
+
+
+<div class="container   ">
+    <div class="row  row-cols-1 row-cols-md-2 mt-3  ">
+        <div class=" col-12 col-md-8 " style="height: 90vh; overflow-y: scroll; scroll-behavior: smooth;">
+            <!-- <h1 class=" mt-2 mb-5">Cart Items</h1> -->
+
+            <table class="w-100">
+                <thead class="">
+                    <tr class="">
+                        <td>Img</td>
+                        <td>Item Name</td>
+                        <td class="">Origional <br> Price</td>
+                        <td>Current <br> Price</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+
+
+                {% for item in cart %}
+                <tr>
+                    <td>
+                        <img class=" table-img" src="{{item.product.image.url}}" alt="image" height="100px"
+                            width="100px">
+                    </td>
+                    <td>{{item.product.name}}</td>
+                    <td>
+                        {{item.product.max_price}}
+                    </td>
+                    <td>{{item.product.current_price}}</td>
+
+                    <td>
+                        <a href="{% url 'product' item.product.id %}" class="btn btn-primary  p-1 my-1 w-100">Buy</a>
+                        <a href="{% url 'remove_from_cart' item.product.id %}"
+                            class="btn btn-danger p-1 my-1 w-100">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+
+            </table>
+        </div>
+        <div class="col-12 col-md-3 ms-md-5  justify-content-end">
+            <h1 class="mt-2 mb-2">Total </h1>
+            <hr>
+
+            <h5 class="my-3">Total Amount : <br>
+                <span style="text-decoration: line-through;">{{total}}</span>
+            </h5>
+            <h6 class="my-4">
+                total discount :
+                <span class="bg-danger p-2  px-4 rounded-pill">{{off}} Off</span>
+            </h6>
+            <h3 class="my-4">After Discount: <br>
+                <span>{{current_price}}</span>
+            </h3>
+
+
+            <a href="" class="btn btn-primary w-100">Checkout</a>
+
+        </div>
+    </div>
+</div>
+<script>
+    function plus() {
+        let val = document.getElementById('count')
+        let temp = Number(val.value)
+
+        if (temp !== 10) {
+            temp += 1
+            val.value = temp
+        }
+    }
+    function minus() {
+        val = document.getElementById('count')
+
+        let temp = Number(val.value)
+        if (temp !== 1) {
+            temp -= 1
+            val.value = temp
+        }
+    }
+</script>
+
+{% endblock content %}
