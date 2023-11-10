@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block title %}
 home
@@ -41,53 +41,62 @@ home
     <div class="row gy-3 mt-3">
         <!-- col start -->
         <div class="col">
-            <div class="card shadow">
-                <img src="https://images.macrumors.com/t/hpdbb62JNiaVXC8D9x0LyQ-O8E4=/1600x0/filters:quality(90)/article-new/2017/09/iosxinterface-800x633.jpg"
-                    class="card-img" alt="..." width="150px" height="250px">
-                <div class="card-body align-items-center">
-                    <h5 class="card-title">Mobiles</h5>
-                    <a href="{% url 'category' 'mobile' %}" class="btn btn-primary mx-auto w-100">View</a>
+            <a href="{% url 'category'  'mobile' %}" class="text-decoration-none text-dark">
+                <div class="card shadow">
+                    <img src="{% static 'mobile_category.jpg' %}" class="card-img" alt="..." width="150px"
+                        height="250px">
+                    <div class="card-body align-items-center">
+                        <h5 class="card-title">Mobiles</h5>
+                        <a href="{% url 'category' 'mobile' %}" class="btn btn-primary mx-auto w-100">View</a>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- col end -->
 
         <!-- col start -->
         <div class="col">
-            <div class="card">
-                <img src="https://th.bing.com/th/id/R.8c30240037e865c8d51740d3081ed472?rik=VAXoOFV8dtGVEg&riu=http%3a%2f%2fbrain-images.cdn.dixons.com%2f2%2f2%2f10164722%2fu_10164722.jpg&ehk=rVGOBsZxfHG1cDENamYlZBBGVjYp4ecoPVWIADD6ZPQ%3d&risl=&pid=ImgRaw&r=0"
-                    class="card-img" alt="..." width="150px" height="250px">
-                <div class="card-body align-items-center">
-                    <h5 class="card-title">Laptops</h5>
-                    <a href="{% url 'category' 'laptop' %}" class="btn btn-primary w-100">View</a>
+            <a href="{% url 'category'  'laptop' %}" class="text-decoration-none text-dark">
+                <div class="card shadow">
+                    <img src="{% static 'laptop_category.jpg' %}" class="card-img" alt="..." width="150px"
+                        height="250px">
+                    <div class="card-body align-items-center">
+                        <h5 class="card-title">Laptops</h5>
+                        <a href="{% url 'category' 'laptop' %}" class="btn btn-primary w-100">View</a>
+                    </div>
                 </div>
-            </div>
         </div>
+        </a>
         <!-- col end -->
 
         <!-- col start -->
         <div class="col">
-            <div class="card">
-                <img src="https://kiasuplumber.com/wp-content/uploads/2017/09/Fotolia_132614085_Subscription_Monthly_M-1024x768.jpg"
-                    class=" card-img" alt="..." width="150px" height="250px">
-                <div class="card-body align-items-center">
-                    <h5 class="card-title">Appliances</h5>
-                    <a href="{% url 'category' 'appliances' %}" class="btn btn-primary w-100">View</a>
+            <a href="{% url 'category'  'appliances' %}" class="text-decoration-none text-dark">
+                <div class="card shadow">
+                    <img src="{% static 'appliances_category.jpg' %}" class=" card-img" alt="..." width="150px"
+                        height="250px">
+                    <div class="card-body align-items-center">
+                        <h5 class="card-title">Appliances</h5>
+                        <a href="{% url 'category' 'appliances' %}" class="btn btn-primary w-100">View</a>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- col end -->
 
         <!-- col start -->
+
         <div class="col">
-            <div class="card">
-                <img src="https://pluspng.com/img-png/grocery-items-png-enjoy-online-grocery-shopping-in-bhubaneswar-with-4-easy-steps-click-submit-pay-and-pick-up-2362.jpg"
-                    class="card-img" alt="..." width="150px" height="250px">
-                <div class="card-body align-items-center">
-                    <h5 class="card-title">Grocery</h5>
-                    <a href="{% url 'category' 'grocery' %}" class="btn btn-primary w-100">View</a>
+            <a href="{% url 'category'  'grocery' %}" class="text-decoration-none text-dark">
+                <div class="card shadow">
+                    <img src="{% static 'grocery_category.jpg' %}" class="card-img" alt="..." width="150px"
+                        height="250px">
+                    <div class="card-body align-items-center">
+                        <h5 class="card-title">Grocery</h5>
+                        <a href="{% url 'category' 'grocery' %}" class="btn btn-primary w-100">View</a>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- col end -->
 
@@ -130,16 +139,23 @@ home
                     {% for product in products %}
 
                     <div class="col">
-                        <div class="card shadow">
-                            <img src="{{product.image.url}}" class="card-img ms-md-2" alt="..."
-                                style="height: 200px; width: 170px;">
+                        <a href="{% url 'product' product.id %}" class="text-decoration-none text-dark">
 
-                            <div class="card-body align-items-center">
-                                <h6 class="card-title " style="height: 40px;">{{product.name}}</h6>
-                                <a href="{% url 'product' product.id %}" class="btn btn-primary mx-auto w-100 ">View</a>
+                            <div class="card shadow ">
+                                <div style="height: 200px;" class="">
+                                    <img src="{{product.image.url}}" class="card-img" alt="...">
+                                </div>
+
+
+                                <div class="card-body align-items-center">
+                                    <h5 class="card-title " style="height: 40px;">{{product.name}}</h5>
+                                    <a href="{% url 'product' product.id %}" class="btn btn-primary w-100 ">View</a>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+
+
                     {% endfor %}
 
 
