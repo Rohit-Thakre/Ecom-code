@@ -10,7 +10,7 @@ product-view
 
 
 <div class="container ">
-    <div class="row p-3 mt-3 rounded-3" style="background-color: rgba(133, 114, 203, 0.662);">
+    <div class="row p-3 mt-3 rounded-3">
         <div class="col-sm-12 col-md-6 p-0 m-0 ">
 
             <!-- for now in future multiple image upload add karna hai -->
@@ -42,6 +42,7 @@ product-view
             </div> -->
         </div>
 
+
         <div class="col ps-md-4">
             <div class="temp mt-3">
 
@@ -62,11 +63,6 @@ product-view
                 <h1>{{product.name}}</h1>
                 <p class="">{{product.category}} </p>
                 <p>Rating : <span> {{rating}}/5</span><br>
-                    <!-- <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <i class="fa-regular fa-star"></i> -->
 
 
                     {% for number in frange %}
@@ -89,9 +85,8 @@ product-view
                     <span class="badge bg-danger p-2"> {{off}} off
                         </i></span>
                 </h5>
-                <p><span style="text-decoration: line-through;">{{product.max_price}}</span>
-                    <!-- <span style="">$00.00</span> -->
-                    <strong style="font-size: larger; color: rgba(255, 0, 0, 0.916);">{{product.current_price}}</strong>
+                <p><span class="text-muted text-decoration-line-through fs-5 fw-normal">{{product.max_price}}</span>
+                    <strong class="fs-3 fw-bolder">{{product.current_price}}</strong>
                 </p>
 
                 <!-- <input class="" type="number" name="" id="" value="1"> -->
@@ -119,13 +114,10 @@ product-view
 
     <div class="row">
         <h1>Description</h1>
-        <div class="col-sm-12 col-md-6">
+        <div class="col">
             {{product.description}}
         </div>
 
-        <div class="col-sm-12 col-md-6">
-            {{product.description}}
-        </div>
     </div> <!-- description row end -->
 
     <!-- rating -->
