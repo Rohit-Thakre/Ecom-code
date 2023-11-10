@@ -330,7 +330,7 @@ def review(request, key):
     return render(request, 'reviewForm.html', context)
 
 
-
+login_required()
 def like_product(request, key):
     
     product = Product.objects.get(id=key)
@@ -339,6 +339,7 @@ def like_product(request, key):
 
     return redirect('product', key)
 
+login_required()
 def dislike_product(request, key):
     
     product = Product.objects.get(id=key)
@@ -347,7 +348,7 @@ def dislike_product(request, key):
 
     return redirect('product', key)
 
-
+@login_required()
 def order_address(request, key):
     address = Address.objects.filter(user__email = request.user.email)
 
@@ -378,7 +379,7 @@ def order_address(request, key):
     context = {'address':address, 'selected_address':selected_address, 'key':key}    
     return render(request, 'order_address.html',context)
 
-
+@login_required()
 def cod(request, product_id, address_id):
     product = Product.objects.get(id=product_id)
     address = Address.objects.get(id=address_id)
@@ -393,6 +394,7 @@ def cod(request, product_id, address_id):
 import razorpay
 from django.conf import settings
 client = razorpay.Client(auth=(settings.RAZOR_KEY, settings.RAZOR_SECRET))
+@login_required()
 def payment_method(request, product_id, address_id):
 
     product = Product.objects.get(id=product_id)
