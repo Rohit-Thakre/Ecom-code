@@ -181,9 +181,11 @@ product-list
                         </div>
 
                         {% empty %}
-                        <h2 class="text-center  mt-5">Sorry no products available for this category</h2>
-                        <p class="text-center">We also have different Products available you might be intrested in <a
-                                        href="{% url 'home' %}">View</a>
+                        <h2 class="text-center  mt-5">We're sorry, the product you're looking for is currently out of
+                                stock.</h2>
+                        <p class="text-center">We apologize for inconvenience. <br> but we have wide range of other
+                                produts available you might be intrested in. <br><a href="{% url 'home' %}">View other
+                                        products</a>
                         </p>
                         {% endfor %}
 
