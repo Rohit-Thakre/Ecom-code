@@ -26,7 +26,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@1,700&display=swap"
             rel="stylesheet">
-        {% block style %}
         <style>
             @media only screen and (max-width: 991px) {
                 #navbar-nav {
@@ -34,7 +33,18 @@
                     justify-content: space-between;
                 }
             }
+
+
+
+            #ok_btn.focus,
+            #ok_btn:focus {
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                outline: 0;
+            }
         </style>
+        {% block style %}
+
         {% endblock style %}
 
 
@@ -53,7 +63,7 @@
 
                 <a href="{% url 'home' %}" class="navbar-brand p-0 m-0 fs-2 fw-bold ms-md-4">E-com</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button id="ok_btn" class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
