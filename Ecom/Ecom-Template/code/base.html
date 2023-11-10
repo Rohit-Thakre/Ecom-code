@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 
@@ -91,11 +93,10 @@
 
                             {% if request.user.is_authenticated %}
                             <div class="btn-group dropstart">
-
                                 <button class="btn btn-default dropdown-toggle" type="button" id="menu1"
                                     data-bs-toggle="dropdown">
-                                    <img class="rounded-circle m-0 p-0" src={{request.user.avatar.url}} height="40px"
-                                        width="40px">
+                                    <img class="rounded-circle m-0 p-0" src={{request.user.avatar.url}} height="35px"
+                                        width="35px">
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                     {% if request.user.is_authenticated %}
