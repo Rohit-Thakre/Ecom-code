@@ -179,14 +179,20 @@ product-view
         {% for product in products %}
 
         <div class="col">
-            <div class="card shadow">
-                <img src="{{product.image.url}}" class="card-img" alt="..." style="height: 200px; width: 180px;">
+            <a href="{% url 'product' product.id %}" class="text-decoration-none text-dark">
 
-                <div class="card-body align-items-center">
-                    <h6 class="card-title " style="height: 40px;">{{product.name}}</h6>
-                    <a href="{% url 'product' product.id %}" class="btn btn-primary mx-auto w-100 ">View</a>
+                <div class="card shadow ">
+                    <div style="height: 200px;" class="">
+                        <img src="{{product.image.url}}" class="card-img" alt="...">
+                    </div>
+
+
+                    <div class="card-body align-items-center">
+                        <h5 class="card-title " style="height: 40px;">{{product.name}}</h5>
+                        <a href="{% url 'product' product.id %}" class="btn btn-primary w-100 ">View</a>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         {% endfor %}
 
