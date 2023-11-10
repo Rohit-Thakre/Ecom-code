@@ -56,17 +56,32 @@ product-view
                         <i class="fa-solid fa-thumbs-down"> {{product.dislikes}}+</i>
                     </a>
                 </p>
-                <p>Total Orders : <span>10054+</span></p>
+                <p>Total Orders : <span>{{prduct.total_orders}}</span></p>
 
 
                 <h1>{{product.name}}</h1>
                 <p class="">{{product.category}} </p>
-                <p>Rating : <span> 3.5/5</span><br>
-                    <i class="fa-solid fa-star"></i>
+                <p>Rating : <span> {{rating}}/5</span><br>
+                    <!-- <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i> -->
+
+
+                    {% for number in frange %}
+                    <i class="fa-solid fa-star"></i>
+                    {% endfor %}
+
+                    {% for number in erange %}
                     <i class="fa-regular fa-star"></i>
+
+
+                    {% endfor %}
+
+
+
+
 
                 </p>
                 <h5 class="mt-2">
