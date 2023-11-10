@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}
 home
@@ -39,66 +38,23 @@ home
 <div class="container">
 
     <div class="row gy-3 mt-3">
-        <!-- col start -->
+
+        {% for cat_img in category_img %}
+
         <div class="col">
-            <a href="{% url 'category'  'mobile' %}" class="text-decoration-none text-dark">
+            <a href="{% url 'category'  cat_img.name %}" class="text-decoration-none text-dark">
                 <div class="card shadow">
-                    <img src="{% static 'mobile_category.jpg' %}" class="card-img" alt="..." width="150px"
-                        height="250px">
+                    <img src="{{cat_img.img.url}}" class="card-img" alt="..." width="150px" height="250px">
                     <div class="card-body align-items-center">
-                        <h5 class="card-title">Mobiles</h5>
-                        <a href="{% url 'category' 'mobile' %}" class="btn btn-primary mx-auto w-100">View</a>
+                        <h5 class="card-title">{{cat_img.name}}</h5>
+                        <a href="{% url 'category' cat_img.name %}" class="btn btn-primary mx-auto w-100">View</a>
                     </div>
                 </div>
             </a>
         </div>
-        <!-- col end -->
 
-        <!-- col start -->
-        <div class="col">
-            <a href="{% url 'category'  'laptop' %}" class="text-decoration-none text-dark">
-                <div class="card shadow">
-                    <img src="{% static 'laptop_category.jpg' %}" class="card-img" alt="..." width="150px"
-                        height="250px">
-                    <div class="card-body align-items-center">
-                        <h5 class="card-title">Laptops</h5>
-                        <a href="{% url 'category' 'laptop' %}" class="btn btn-primary w-100">View</a>
-                    </div>
-                </div>
-        </div>
-        </a>
-        <!-- col end -->
+        {% endfor %}
 
-        <!-- col start -->
-        <div class="col">
-            <a href="{% url 'category'  'appliances' %}" class="text-decoration-none text-dark">
-                <div class="card shadow">
-                    <img src="{% static 'appliances_category.jpg' %}" class=" card-img" alt="..." width="150px"
-                        height="250px">
-                    <div class="card-body align-items-center">
-                        <h5 class="card-title">Appliances</h5>
-                        <a href="{% url 'category' 'appliances' %}" class="btn btn-primary w-100">View</a>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <!-- col end -->
-
-        <!-- col start -->
-
-        <div class="col">
-            <a href="{% url 'category'  'grocery' %}" class="text-decoration-none text-dark">
-                <div class="card shadow">
-                    <img src="{% static 'grocery_category.jpg' %}" class="card-img" alt="..." width="150px"
-                        height="250px">
-                    <div class="card-body align-items-center">
-                        <h5 class="card-title">Grocery</h5>
-                        <a href="{% url 'category' 'grocery' %}" class="btn btn-primary w-100">View</a>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <!-- col end -->
 
 
 
