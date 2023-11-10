@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
-from .models import Review_image, User, Order, Review, Address, Category, Product, Cart_item, Banner
+from .models import Review_image, User, Order, Review, Address, Category, Product, Cart_item, Banner, Category_image
 from django.contrib.auth.decorators import login_required
 
 
@@ -69,7 +69,8 @@ def home(request):
 
     banners = Banner.objects.all()
     products = Product.objects.all()
-    context = {'products': products, 'banners': banners}
+    category_img = Category_image.objects.all()
+    context = {'products': products, 'banners': banners, 'category_img':category_img}
     return render(request, 'home.html', context)
 
 from .forms import ProductForm

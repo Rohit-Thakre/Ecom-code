@@ -166,3 +166,15 @@ class Banner(models.Model):
 
     def __str__(self) -> str:
         return str(self.product)
+
+
+class Category_image(models.Model):
+    name = models.CharField(max_length=50)
+    img = models.ImageField(upload_to='category/')
+
+    by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.name)

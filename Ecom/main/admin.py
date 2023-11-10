@@ -60,3 +60,8 @@ class AdminReview(admin.ModelAdmin):
 class AdminReview(admin.ModelAdmin):
     list_display = ['user','review','image',
                      'created']
+
+@admin.register(models.Category_image)
+class AdminReview(admin.ModelAdmin):
+    list_display = ['name','img','by',
+                     'created']
