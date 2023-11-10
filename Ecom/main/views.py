@@ -194,13 +194,22 @@ def product(request, key):
     products = Product.objects.all()
     off = int(product.max_price) - int(product.current_price)
     reviews = Review.objects.filter(product=product)
+    rating = 0
 
     for review in reviews: 
+        # for getting all image for each review and attaching it to review obj
         review.image = Review_image.objects.filter(review= review)
-    
 
+        # countring total_rating
+        rating += review.rating
+
+    if reviews.count():
+        rating  = rating/reviews.count()
+    rating = 0
+
+    
     context = {'product': product, 'reviews': reviews,
-               'off': off, 'products': products}
+               'off': off, 'products': products, 'rating':rating, 'frange' : range(int(rating)),'erange':range(5-int(rating))}
     
     return render(request, 'product-view.html', context)
 
