@@ -118,8 +118,8 @@ def password_change_method(request):
 from django.conf import settings
 from django.core.mail import send_mail
 def send_mail_after_registration(email , token):
-    subject = 'OTP for Password reset.'
-    message = f'Hi,\nHere is your OTP : \n{token}'
+    subject = "OTP for Password Reset"
+    message = f"Dear User \nAs requested, here is your one-time password (OTP) to reset your password: \n {token} \n\nPlease enter this code on the password reset page to complete the process. If you didn't initiate this request, kindly ignore this message. \n\nThank You \nEcom-code"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message , email_from ,recipient_list )
