@@ -7,6 +7,7 @@ from .models import Review_image, User, Order, Review, Address, Category, Produc
 from django.contrib.auth.decorators import login_required
 
 
+
 def user_login(request):
 
     if request.method == 'POST':
@@ -72,7 +73,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 from .forms import ProductForm
-@login_required(login_url='login')
+@login_required()
 def add_product(request):
     category_list = Category.objects.all()
     show = 0
@@ -110,7 +111,7 @@ def add_product(request):
     return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show})
 
 from .forms import UserForm
-@login_required(login_url='login')
+@login_required()
 def be_merchant(request):
     address = Address.objects.filter(user=request.user).first()
     show = 0
@@ -154,7 +155,7 @@ def be_merchant(request):
     context = {'address': address, 'msg': msg, 'show': show, 'form':form}
     return render(request, 'be_merchant_form.html', context)
 
-@login_required(login_url='login')
+@login_required()
 def cart(request):
     total = 0
     current_price = 0
@@ -169,7 +170,7 @@ def cart(request):
                'current_price': current_price, 'off': total - current_price}
     return render(request, 'cart.html', context)
 
-@login_required(login_url='login')
+@login_required()
 def add_to_cart(request, key):
     product = Product.objects.get(id=key)
     try:
@@ -179,7 +180,7 @@ def add_to_cart(request, key):
         pass
     return redirect('cart')
 
-@login_required(login_url='login')
+@login_required()
 def remove_from_cart(request, key):
     item = Cart_item.objects.filter(product__id=key).first()
     if item:
@@ -209,7 +210,7 @@ def category_list(request, type):
     context = {'products': products}
     return render(request, 'product-list.html', context)
 
-@login_required(login_url='login')
+@login_required()
 def account(request):
     user = User.objects.filter(email=request.user.email).first()
     address = None
@@ -223,7 +224,7 @@ def account(request):
 
     return render(request, 'account.html', context)
 
-@login_required(login_url='login')
+@login_required()
 def edit_profile(request):
 
     address = Address.objects.filter(user=request.user)
@@ -270,7 +271,7 @@ def edit_profile(request):
     context = {'user': user, 'address': address, 'msg': msg, 'show': show,'form':form}
     return render(request, 'edit_profile.html', context)
 
-@login_required(login_url='login')
+@login_required()
 def remove_address(request, key):
 
     address = Address.objects.get(id=key)
@@ -291,7 +292,7 @@ def new_category_list(request):
     return render(request, 'product-list.html', context)
 
 # from .forms import ReviewForm
-@login_required(login_url='login')
+@login_required()
 def review(request, key):
 
     show = 0
