@@ -14,48 +14,45 @@ login
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white border border-2 border-light shadow" style="border-radius: 1rem;">
-
                     <div class="card-body p-5 text-center">
 
-                        <div class=" pb-1">
-                            <h2 class=" fw-bold  mt-0 mb-3">LOGIN</h2>
+                        <h2 class=" fw-bold  mt-0 mb-3">LOGIN</h2>
 
 
-                            <div
-                                class="alert alert-danger alert-dismissible fade  m-0 {% if  val %} show   {% endif %}">
-                                <p class="m-0 p-0 h6">{{msg}}</p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <div class="alert alert-danger alert-dismissible fade  m-0 {% if  val %} show   {% endif %}">
+                            <p class="m-0 p-0 h6">{{msg}}</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 
+                        </div>
+
+
+
+                        <form action="" onsubmit="return validate()" method="post">
+                            <!-- <form method="POST"> -->
+                            {% csrf_token %}
+                            <div class="form-outline form-white mb-4 mt-2">
+                                <input type="email" id="email" class="form-control form-control-lg" name="email"
+                                    placeholder="Email" />
                             </div>
 
-
-
-                            <form action="" onsubmit="return validate()" method="post">
-                                <!-- <form method="POST"> -->
-                                {% csrf_token %}
-                                <div class="form-outline form-white mb-4 mt-2">
-                                    <input type="email" id="email" class="form-control form-control-lg" name="email"
-                                        placeholder="Email" />
-                                </div>
-
-                                <div class="form-outline form-white mb-4">
-                                    <input type="password" id="password" class="form-control form-control-lg"
-                                        placeholder="Password" name="password" />
-                                </div>
-
-                                <button class="btn btn-outline-light btn-lg px-5 w-100" type="submit">Login</button>
-
-                            </form>
-
-                            <div
-                                class="d-flex justify-content-center text-center mt-5 mb-2 pt-1 justify-content-evenly">
-                                <a href="{% provider_login_url 'google' %}" class="text-white"><i
-                                        class="fa-brands fa-google fa-2xl"></i></a>
-                                <a href="{% provider_login_url 'github' %}" class="text-white"><i
-                                        class="fa-brands fa-github fa-2xl"></i></a>
-                                <a href="{% provider_login_url 'facebook' %}" class="text-white"><i
-                                        class="fa-brands fa-facebook fa-2xl"></i></a>
+                            <div class="form-outline form-white mb-4">
+                                <input type="password" id="password" class="form-control form-control-lg"
+                                    placeholder="Password" name="password" />
                             </div>
+
+                            <button class="btn btn-outline-light btn-lg px-5 w-100" type="submit">Login</button>
+
+                        </form>
+
+                        <!-- copy -->
+
+                        <div class="d-flex justify-content-center text-center mt-5 mb-2 pt-1 justify-content-evenly">
+                            <a href="{% provider_login_url 'google' %}" class="text-white"><i
+                                    class="fa-brands fa-google fa-2xl"></i></a>
+                            <a href="{% provider_login_url 'github' %}" class="text-white"><i
+                                    class="fa-brands fa-github fa-2xl"></i></a>
+                            <a href="{% provider_login_url 'facebook' %}" class="text-white"><i
+                                    class="fa-brands fa-facebook fa-2xl"></i></a>
                         </div>
 
                         <div>
@@ -68,6 +65,9 @@ login
                                     Up</a>
                             </p>
                         </div>
+
+                        <!-- copy end -->
+
                     </div>
                 </div>
             </div>
