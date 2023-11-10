@@ -12,9 +12,9 @@ product-list
 
 
 <div class="container-fluid">
-    <div class="row">
-        <!-- filter col -->
-        <!-- 
+        <div class="row">
+                <!-- filter col -->
+                <!-- 
         <div class="col-lg-3 col-md-4  d-none d-sm-block">
 
             <div class="container-fluid">
@@ -119,81 +119,86 @@ product-list
 
         </div>
          -->
-        <!-- filter col end -->
+                <!-- filter col end -->
 
-        <!-- produsts list col -->
-        <div class="col">
+                <!-- produsts list col -->
+                <div class="col">
 
-            <!-- repeat to gen multiple row -->
+                        <!-- repeat to gen multiple row -->
 
-            {% for product in products %}
+                        {% for product in products %}
 
-            <div class="container p-2">
-                <div class="row rounded-3 shadow">
+                        <div class="container p-2">
+                                <div class="row rounded-3 shadow">
 
-                    <div class="col-5 col-sm-3  ps-lg-4">
-                        <img src="{{product.image.url}}" alt="" height="150px" width="150px">
+                                        <div class="col-5 col-sm-3  ps-lg-4">
+                                                <img src="{{product.image.url}}" alt="" height="150px" width="150px">
 
 
-                    </div>
+                                        </div>
 
-                    <div class=" col-7 col-sm-7">
-                        <h3 class="" style="height: 60px;">{{product.name}}</h3>
-                        <p class="d-none d-sm-block">{{product.description |slice:"0:200"}}</p>
+                                        <div class=" col-7 col-sm-7">
+                                                <h3 class="" style="height: 60px;">{{product.name}}</h3>
+                                                <p class="d-none d-sm-block">{{product.description |slice:"0:250"}} ...
+                                                </p>
 
-                        <!-- <p class="d-none d-sm-block">
+                                                <!-- <p class="d-none d-sm-block">
                             sm hiden
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia reprehenderit mollitia porro
                             nisi, nemo laudantium earum fugiat est assumenda repellat eveniet adipisci consectetur quas
                             quibusdam autem, laboriosam, vel magnam sed!
                         </p> -->
 
-                        <div class="buy d-block d-sm-none">
+                                                <div class="buy d-block d-sm-none">
 
-                            <h4> <del class="text-muted">{{product.max_price}}</del> {{product.current_price}}</h4>
-                            <!-- <p class="text-secondary">Item left : 15</p> -->
-                            <a href="{% url 'product' product.id %}" class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
-                            <a href="{% url 'add_to_cart' product.id %}"
-                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
+                                                        <h4> <del class="text-muted">{{product.max_price}}</del>
+                                                                {{product.current_price}}
+                                                        </h4>
+                                                        <!-- <p class="text-secondary">Item left : 15</p> -->
+                                                        <a href="{% url 'product' product.id %}"
+                                                                class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
+                                                        <a href="{% url 'add_to_cart' product.id %}"
+                                                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
 
-                        </div>
+                                                </div>
 
-                    </div>
+                                        </div>
 
-                    <div class="col-2  d-none d-sm-block p-2">
-                        <h4>{{product.current_price}}</h4>
-                        <h5><del class="text-muted">{{product.max_price}}</del></h5>
-                        <p class="text-secondary">Item left : 15</p>
-                        <div class="mt-2">
-                            <!-- <button class="btn btn-success px-4 mb-2 rounded-3">Buy</button>
+                                        <div class="col-2  d-none d-sm-block p-2">
+                                                <h4>{{product.current_price}}</h4>
+                                                <h5><del class="text-muted">{{product.max_price}}</del></h5>
+                                                <p class="text-secondary">Item left : 15</p>
+                                                <div class="mt-2">
+                                                        <!-- <button class="btn btn-success px-4 mb-2 rounded-3">Buy</button>
                                     <button class="btn btn-primary  px-4 mb-2">cart</button> -->
-                            <a href="{% url 'product' product.id %}" class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
-                            <a href="{% url 'add_to_cart' product.id %}"
-                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
+                                                        <a href="{% url 'product' product.id %}"
+                                                                class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
+                                                        <a href="{% url 'add_to_cart' product.id %}"
+                                                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
+                                                </div>
+                                        </div>
+                                </div>
                         </div>
-                    </div>
+
+                        {% empty %}
+                        <h2 class="text-center  mt-5">Sorry no products available for this category</h2>
+                        <p class="text-center">We also have different Products available you might be intrested in <a
+                                        href="{% url 'home' %}">View</a>
+                        </p>
+                        {% endfor %}
+
+                        <!-- gen row end -->
+
+
                 </div>
-            </div>
-
-            {% empty %}
-            <h2 class="text-center  mt-5">Sorry no products available for this category</h2>
-            <p class="text-center">We also have different Products available you might be intrested in <a
-                    href="{% url 'home' %}">View</a>
-            </p>
-            {% endfor %}
-
-            <!-- gen row end -->
-
-
+                <!-- products list col end -->
         </div>
-        <!-- products list col end -->
-    </div>
 </div>
 
 <script>
-    function updateTextInput(val, elId) {
-        document.getElementById('textInput1').value = val;
-    }
+        function updateTextInput(val, elId) {
+                document.getElementById('textInput1').value = val;
+        }
 </script>
 
 {% endblock content %}
