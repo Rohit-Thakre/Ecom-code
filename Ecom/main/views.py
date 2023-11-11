@@ -70,7 +70,8 @@ def home(request):
     banners = Banner.objects.all()
     products = Product.objects.all()
     category_img = Category_image.objects.all()
-    context = {'products': products, 'banners': banners, 'category_img':category_img}
+    category = Category.objects.all()
+    context = {'products': products, 'banners': banners, 'category_img':category_img, 'category':category}
     return render(request, 'home.html', context)
 
 from .forms import ProductForm
