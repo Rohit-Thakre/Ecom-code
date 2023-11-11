@@ -65,21 +65,13 @@ home
             <h2 class="text-center text-uppercase mt-2">Catergory</h2>
             <hr>
             <ul style="list-style-type: none;" class="">
+
+                {% for cat_item in category %}
                 <li>
-                    <a href="{% url 'category'  'mobile' %}" class="btn btn-primary w-100 my-2 p-3 ">Mobiles</a>
+                    <a href="{% url 'category'  cat_item.type %}"
+                        class="btn btn-primary w-100 my-2 p-3 ">{{cat_item.type}}</a>
                 </li>
-                <li>
-                    <a href="{% url 'category' 'laptop' %}" class="btn btn-primary w-100 my-2 p-3">Laptops</a>
-                </li>
-                <li>
-                    <a href="{% url 'category' 'electronics' %}" class="btn btn-primary w-100 my-2 p-3">Electronic</a>
-                </li>
-                <li>
-                    <a href="{% url 'category' 'shoes' %}" class="btn btn-primary w-100 my-2 p-3">Shoes</a>
-                </li>
-                <li>
-                    <a href="{% url 'category' 'beauty' %}" class="btn btn-primary w-100 my-2 p-3">Beauty</a>
-                </li>
+                {% endfor %}
 
             </ul>
 
