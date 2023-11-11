@@ -44,7 +44,7 @@ home
         <div class="col">
             <a href="{% url 'category'  cat_img.name %}" class="text-decoration-none text-dark">
                 <div class="card shadow">
-                    <img src="{{cat_img.img.url}}" class="card-img" alt="..." width="150px" height="250px">
+                    <img src="{{cat_img.img.url}}" class="card-img" alt="" height="174px">
                     <div class="card-body align-items-center">
                         <h5 class="card-title">{{cat_img.name}}</h5>
                         <a href="{% url 'category' cat_img.name %}" class="btn btn-primary mx-auto w-100">View</a>
@@ -54,8 +54,6 @@ home
         </div>
 
         {% endfor %}
-
-
 
 
     </div>
@@ -98,16 +96,15 @@ home
                         <a href="{% url 'product' product.id %}" class="text-decoration-none text-dark">
 
                             <div class="card shadow ">
-                                <div style="height: 200px;" class="">
-                                    <img src="{{product.image.url}}" class="card-img" alt="...">
-                                </div>
+                                <img src="{{product.image.url}}" class="card-img" alt="..." style="height: 174px;">
 
-
-                                <div class="card-body align-items-center">
-                                    <h5 class="card-title text-capitalize" style="height: 40px;">{{product.name}}</h5>
+                                <h5 class="card-title px-2 ">{{product.name|slice:"0:15"}}</h5>
+                                <div class="card-body pt-0 pb-1">
                                     <a href="{% url 'product' product.id %}" class="btn btn-primary w-100 ">View</a>
                                 </div>
+
                             </div>
+
                         </a>
                     </div>
 
