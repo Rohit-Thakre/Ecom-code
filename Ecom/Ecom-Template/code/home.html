@@ -61,7 +61,7 @@ home
 
     <!-- products  -->
     <div class="row  mt-5">
-        <div class="col-3 d-none d-sm-block " style="height: 500px; ">
+        <div class="col-3 d-none d-sm-block ">
             <h2 class="text-center text-uppercase mt-2">Catergory</h2>
             <hr>
             <ul style="list-style-type: none;" class="">
@@ -69,7 +69,7 @@ home
                 {% for cat_item in category %}
                 <li>
                     <a href="{% url 'category'  cat_item.type %}"
-                        class="btn btn-primary w-100 my-2 p-3 ">{{cat_item.type}}</a>
+                        class="btn btn-primary w-100 my-2 p-2  fs-5 text-capitalize">{{cat_item.type}}</a>
                 </li>
                 {% endfor %}
                 <!-- double col idea -->
@@ -78,7 +78,7 @@ home
 
         </div>
 
-        <div class="col" style="height: 90vh; overflow-y: scroll;">
+        <div class="col">
             <div class="container m-0 p-0">
                 <div class="row  row-cols-md-4 row-cols-2 g-3">
 
