@@ -158,7 +158,8 @@ class Review_image(models.Model):
 
 
 class Banner(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, null=True)
+    category = models.CharField(max_length=50)
     img = models.ImageField(upload_to='banner/')
     by = models.ForeignKey(User, on_delete=models.CASCADE)
 
