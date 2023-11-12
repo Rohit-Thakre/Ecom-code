@@ -12,7 +12,7 @@ product-list
 
 
 <div class="container-fluid">
-        <div class="row">
+        <div class="row d-none d-md-block ">
                 <!-- filter col -->
                 <!-- 
         <div class="col-lg-3 col-md-4  d-none d-sm-block">
@@ -131,25 +131,20 @@ product-list
                         <div class="container p-2">
                                 <div class="row rounded-3 shadow">
 
-                                        <div class="col-5 col-sm-3  ps-lg-4">
-                                                <img src="{{product.image.url}}" alt="" height="150px" width="150px">
-
+                                        <div class="col-5 col-sm-2 m-0 p-0 ">
+                                                <img src="{{product.image.url}}" alt="" class="card-img"
+                                                        style="height: 168px; ">
 
                                         </div>
 
-                                        <div class=" col-7 col-sm-7">
-                                                <h3 class="" style="height: 60px;">{{product.name}}</h3>
-                                                <p class="d-none d-sm-block">{{product.description |slice:"0:250"}} ...
+                                        <div class=" col-6 col-sm-6 my-0 py-0">
+                                                <h3 class="">{{product.name}}</h3>
+                                                <p class="d-none d-sm-block my-0 py-0">
+                                                        {{product.description |slice:"0:350"}} ...
                                                 </p>
 
-                                                <!-- <p class="d-none d-sm-block">
-                            sm hiden
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia reprehenderit mollitia porro
-                            nisi, nemo laudantium earum fugiat est assumenda repellat eveniet adipisci consectetur quas
-                            quibusdam autem, laboriosam, vel magnam sed!
-                        </p> -->
 
-                                                <div class="buy d-block d-sm-none">
+                                                <div class="buy d-block d-sm-none my-0 py-0">
 
                                                         <h4> <del class="text-muted">{{product.max_price}}</del>
                                                                 {{product.current_price}}
@@ -163,14 +158,69 @@ product-list
                                                 </div>
 
                                         </div>
+                                        <div class="col-2 my-0 py-0">
+                                                <p class="mt-2">
+                                                        <span class=" bg-primary text-light rounded-3 p-1 px-2 me-3">
+                                                                <i class=" fa-solid fa-thumbs-up">
+                                                                        {{product.likes}}</i>
+                                                        </span>
+                                                        <span class=" bg-secondary text-light rounded-3 p-1 px-2">
+                                                                <i class="fa-solid fa-thumbs-down">
+                                                                        {{product.dislikes}}</i>
+                                                        </span>
 
-                                        <div class="col-2  d-none d-sm-block p-2">
-                                                <h4>{{product.current_price}}</h4>
-                                                <h5><del class="text-muted">{{product.max_price}}</del></h5>
-                                                <p class="text-secondary">Item left : 15</p>
-                                                <div class="mt-2">
-                                                        <!-- <button class="btn btn-success px-4 mb-2 rounded-3">Buy</button>
-                                    <button class="btn btn-primary  px-4 mb-2">cart</button> -->
+                                                </p>
+                                                <p class="my-0 py-0">Total Orders : <span>{{product.total_orders}}
+                                                        </span></p>
+
+                                                <p class="my-0 py-0">Rating : <span> {{product.rating}}/5</span><br>
+
+                                                        {% for number in product.frange %}
+                                                        <i class="fa-solid fa-star"></i>
+                                                        {% endfor %}
+
+                                                        {% for number in product.erange %}
+                                                        <i class="fa-regular fa-star"></i>
+                                                        {% endfor %}
+
+                                                </p>
+                                                <p class="my-0 py-0">Total Reviews : <span>{{product.total_reviews}}
+                                                        </span></p>
+
+
+                                        </div>
+
+
+                                        <div class="col-2  d-none d-sm-block my-0 py-0 ">
+
+                                                <!-- <h4 class="mt-2"> <i
+                                                                class="fa-solid fa-indian-rupee-sign fa-2xl"></i>{{product.current_price}}
+                                                        <br>
+                                                        <del class="text-muted">{{product.max_price}}</del>
+                                                </h4> -->
+                                                <!-- <h5><del class="text-muted">{{product.max_price}}</del></h5> -->
+
+                                                <div class="row">
+                                                        <div class="col-3 d-flex align-self-center">
+                                                                <h4>
+                                                                        <i
+                                                                                class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
+                                                                </h4>
+                                                        </div>
+                                                        <div class="col">
+                                                                <div class="row">
+                                                                        <div class="col">
+                                                                                <h4>{{product.current_price}}</h4>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                                <h5><del class="text-muted">{{product.max_price}}</del>
+                                                                                </h5>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <p class="">Item left : {{product.stock}}</p>
+                                                <div class="mt-2 mb-0 pb-0">
                                                         <a href="{% url 'product' product.id %}"
                                                                 class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
                                                         <a href="{% url 'add_to_cart' product.id %}"
@@ -195,6 +245,10 @@ product-list
                 </div>
                 <!-- products list col end -->
         </div>
+
+
+
+
 </div>
 
 <script>

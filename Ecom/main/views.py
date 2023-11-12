@@ -218,6 +218,13 @@ def product(request, key):
 def category_list(request, type):
 
     products = Product.objects.filter(category__type__icontains=type)
+
+    for product in products: 
+        product.off = int(product.max_price) - int(product.current_price)
+        product.frange = range(int(product.rating))
+        product.erange = (range(5-int(product.rating)))
+        product.total_reviews = Review.objects.filter(product=product).count()
+
     context = {'products': products}
     return render(request, 'product-list.html', context)
 
@@ -311,11 +318,14 @@ def review(request, key):
     # form = ReviewForm()
     product = Product.objects.get(id=key)
 
+    # for adding rating in product
+    reviews = Review.objects.filter(product = product)
 
     if request.method == 'POST':
         images = request.FILES.getlist('image')
         text = request.POST.get('text', '')
         rate = request.POST.get('rate', 0)
+        
 
         review_obj = Review.objects.create(text=text, rating=rate, product = product,user= request.user)
         review_obj.save()
@@ -323,7 +333,15 @@ def review(request, key):
         for image in images:
             review_image = Review_image.objects.create(image = image, user = request.user, review = review_obj)
             review_image.save()
+        
+        rate_count = 0
+        for review in reviews:
+            rate_count += review.rating
+        
+        rate_count = rate_count + rate 
 
+        product.rating = int(rate_count / (reviews.count()+1))
+        product.save()
 
         show = 1
         msg = 'Review Added.'
@@ -390,6 +408,8 @@ def cod(request, product_id, address_id):
                                  payment_method='cod', user=request.user, 
                                  status ='processing', product=product)
     order.save()
+    product.stock -= 1 
+    product.save()
     return redirect('home')
 
 
@@ -412,6 +432,10 @@ def payment_method(request, product_id, address_id):
                                             payment_method = 'upi', user = request.user, status = 'processing', product = product)
         order.payment_method = 'upi'
         order.save()
+
+        product.stock -= 1
+        product.save()
+        
         return redirect('home')
   
     data = { "amount": int(product.current_price)*100, "currency": "INR", "receipt": "order_rcptid_11" , 'payment_capture':1}

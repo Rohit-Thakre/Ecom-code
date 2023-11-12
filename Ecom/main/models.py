@@ -56,21 +56,21 @@ class Product(models.Model):
     name = models.CharField(max_length=30)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
-    max_price = models.CharField(max_length=10)
-    last_price = models.CharField(max_length=10, null=True)
-    current_price = models.CharField(max_length=10)
+    max_price = models.CharField(max_length=10, default=0)
+    last_price = models.CharField(max_length=10, null=True, default=0)
+    current_price = models.CharField(max_length=10, default=0)
 
     description = models.TextField()
     image = models.ImageField(upload_to='product/')
 
     merchant = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    stock = models.PositiveBigIntegerField()
+    stock = models.PositiveBigIntegerField(default=0)
     likes = models.PositiveBigIntegerField(default=0)
     dislikes = models.PositiveBigIntegerField(default=0)
-    # rating = models.PositiveIntegerField()
+    rating = models.PositiveIntegerField(default=0)
 
-    total_orders = models.PositiveIntegerField(null=True)
+    total_orders = models.PositiveIntegerField(null=True, default=0)
 
     def __str__(self):
         # return str(self.name) + str(self.current_price)
