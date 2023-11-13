@@ -246,7 +246,55 @@ product-list
                 <!-- products list col end -->
         </div>
 
+        <div class="small_screen  d-block d-sm-none mt-2">
 
+                <div class="row row-cols-2 g-2 py-0 my-0">
+
+
+                        {% for product in products %}
+
+                        <div class="col">
+                                <a href="{% url 'product' product.id %}" class="text-decoration-none text-dark">
+
+                                        <div class="card shadow pb-1">
+                                                <img src="{{product.image.url}}" class="card-img" alt="..."
+                                                        style="height: 174px;">
+
+                                                <span class="fw-bold">{{product.name|slice:"0:12"}}</span> <br>
+                                                <div class="row d-flex justify-content-between p-2">
+                                                        <div class="col">
+                                                                <del class="text-muted small">{{product.max_price}}
+                                                                </del>
+                                                                <br>
+                                                                <span class="h4">{{product.current_price}}
+                                                                </span>
+                                                        </div>
+                                                        <div class="col d-flex justify-content-end">
+                                                                <span class="h6 text-end">
+                                                                        {{product.stock}} In Stock
+                                                                </span>
+                                                        </div>
+                                                </div>
+                                                <div class="card-body pt-0 pb-1 d-flex justify-content-between">
+                                                        <a href="{% url 'add_to_cart' product.id %}"
+                                                                class="btn btn-primary ">Cart</a>
+                                                        <a href="{% url 'product' product.id %}"
+                                                                class="btn btn-primary">Buy</a>
+
+
+                                                </div>
+
+                                        </div>
+
+                                </a>
+                        </div>
+
+
+                        {% endfor %}
+
+
+                </div>
+        </div>
 
 
 </div>
