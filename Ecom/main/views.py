@@ -217,7 +217,11 @@ def product(request, key):
 
 def category_list(request, type):
 
-    products = Product.objects.filter(category__type__icontains=type)
+    products = Product.objects.filter(
+        Q(category__type__icontains=type) |
+        Q(name__icontains=type)
+    )
+
 
     for product in products: 
         product.off = int(product.max_price) - int(product.current_price)
