@@ -129,103 +129,125 @@ product-list
                         {% for product in products %}
 
                         <div class="container p-2">
+
                                 <div class="row rounded-3 shadow">
 
-                                        <div class="col-5 col-sm-2 m-0 p-0 ">
-                                                <img src="{{product.image.url}}" alt="" class="card-img"
-                                                        style="height: 168px; ">
 
+
+                                        <div class="col-5 col-sm-2 m-0 p-0 ">
+                                                <a class="text-decoration-none text-dark"
+                                                        href="{% url 'product' product.id %}">
+                                                        <img src="{{product.image.url}}" alt="" class="card-img"
+                                                                style="height: 168px; ">
+
+                                                </a>
                                         </div>
 
-                                        <div class=" col-6 col-sm-6 my-0 py-0">
-                                                <h3 class="">{{product.name}}</h3>
-                                                <p class="d-none d-sm-block my-0 py-0">
-                                                        {{product.description |slice:"0:350"}} ...
-                                                </p>
+
+                                        <div class="col-6 col-sm-6 my-0 py-0">
+                                                <a class="text-decoration-none text-dark"
+                                                        href="{% url 'product' product.id %}">
+
+                                                        <h3 class="">{{product.name}}</h3>
+                                                        <p class="d-none d-sm-block my-0 py-0">
+                                                                {{product.description |slice:"0:350"}} ...
+                                                        </p>
 
 
-                                                <div class="buy d-block d-sm-none my-0 py-0">
+                                                        <div class="buy d-block d-sm-none my-0 py-0">
 
-                                                        <h4> <del class="text-muted">{{product.max_price}}</del>
-                                                                {{product.current_price}}
-                                                        </h4>
-                                                        <!-- <p class="text-secondary">Item left : 15</p> -->
-                                                        <a href="{% url 'product' product.id %}"
-                                                                class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
-                                                        <a href="{% url 'add_to_cart' product.id %}"
-                                                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
+                                                                <h4> <del class="text-muted">{{product.max_price}}</del>
+                                                                        {{product.current_price}}
+                                                                </h4>
+                                                                <!-- <p class="text-secondary">Item left : 15</p> -->
+                                                                <a href="{% url 'product' product.id %}"
+                                                                        class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
+                                                                <a href="{% url 'add_to_cart' product.id %}"
+                                                                        class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
 
-                                                </div>
+                                                        </div>
+                                                </a>
+
 
                                         </div>
                                         <div class="col-2 my-0 py-0">
-                                                <p class="mt-2">
-                                                        <span class=" bg-primary text-light rounded-3 p-1 px-2 me-3">
-                                                                <i class=" fa-solid fa-thumbs-up">
-                                                                        {{product.likes}}</i>
-                                                        </span>
-                                                        <span class=" bg-secondary text-light rounded-3 p-1 px-2">
-                                                                <i class="fa-solid fa-thumbs-down">
-                                                                        {{product.dislikes}}</i>
-                                                        </span>
+                                                <a class="text-decoration-none text-dark"
+                                                        href="{% url 'product' product.id %}">
 
-                                                </p>
-                                                <p class="my-0 py-0">Total Orders : <span>{{product.total_orders}}
-                                                        </span></p>
+                                                        <p class="mt-2">
+                                                                <span
+                                                                        class=" bg-primary text-light rounded-3 p-1 px-2 me-3">
+                                                                        <i class=" fa-solid fa-thumbs-up">
+                                                                                {{product.likes}}</i>
+                                                                </span>
+                                                                <span
+                                                                        class=" bg-secondary text-light rounded-3 p-1 px-2">
+                                                                        <i class="fa-solid fa-thumbs-down">
+                                                                                {{product.dislikes}}</i>
+                                                                </span>
 
-                                                <p class="my-0 py-0">Rating : <span> {{product.rating}}/5</span><br>
+                                                        </p>
+                                                        <p class="my-0 py-0">Total Orders :
+                                                                <span>{{product.total_orders}}
+                                                                </span>
+                                                        </p>
 
-                                                        {% for number in product.frange %}
-                                                        <i class="fa-solid fa-star"></i>
-                                                        {% endfor %}
+                                                        <p class="my-0 py-0">Rating : <span>
+                                                                        {{product.rating}}/5</span><br>
 
-                                                        {% for number in product.erange %}
-                                                        <i class="fa-regular fa-star"></i>
-                                                        {% endfor %}
+                                                                {% for number in product.frange %}
+                                                                <i class="fa-solid fa-star"></i>
+                                                                {% endfor %}
 
-                                                </p>
-                                                <p class="my-0 py-0">Total Reviews : <span>{{product.total_reviews}}
-                                                        </span></p>
+                                                                {% for number in product.erange %}
+                                                                <i class="fa-regular fa-star"></i>
+                                                                {% endfor %}
+
+                                                        </p>
+                                                        <p class="my-0 py-0">Total Reviews :
+                                                                <span>{{product.total_reviews}}
+                                                                </span>
+                                                        </p>
+                                                </a>
+
 
 
                                         </div>
 
 
                                         <div class="col-2  d-none d-sm-block my-0 py-0 ">
+                                                <a class="text-decoration-none text-dark"
+                                                        href="{% url 'product' product.id %}">
 
-                                                <!-- <h4 class="mt-2"> <i
-                                                                class="fa-solid fa-indian-rupee-sign fa-2xl"></i>{{product.current_price}}
-                                                        <br>
-                                                        <del class="text-muted">{{product.max_price}}</del>
-                                                </h4> -->
-                                                <!-- <h5><del class="text-muted">{{product.max_price}}</del></h5> -->
-
-                                                <div class="row">
-                                                        <div class="col-3 d-flex align-self-center">
-                                                                <h4>
-                                                                        <i
-                                                                                class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
-                                                                </h4>
-                                                        </div>
-                                                        <div class="col">
-                                                                <div class="row">
-                                                                        <div class="col">
-                                                                                <h4>{{product.current_price}}</h4>
-                                                                        </div>
-                                                                        <div class="col">
-                                                                                <h5><del class="text-muted">{{product.max_price}}</del>
-                                                                                </h5>
+                                                        <div class="row">
+                                                                <div class="col-3 d-flex align-self-center">
+                                                                        <h4>
+                                                                                <i
+                                                                                        class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
+                                                                        </h4>
+                                                                </div>
+                                                                <div class="col">
+                                                                        <div class="row">
+                                                                                <div class="row">
+                                                                                        <h4>{{product.current_price}}
+                                                                                        </h4>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                        <h5><del class="text-muted">{{product.max_price}}</del>
+                                                                                        </h5>
+                                                                                </div>
                                                                         </div>
                                                                 </div>
                                                         </div>
-                                                </div>
-                                                <p class="">Item left : {{product.stock}}</p>
-                                                <div class="mt-2 mb-0 pb-0">
-                                                        <a href="{% url 'product' product.id %}"
-                                                                class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
-                                                        <a href="{% url 'add_to_cart' product.id %}"
-                                                                class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
-                                                </div>
+                                                        <p class="">Item left : {{product.stock}}</p>
+                                                        <div class="mt-2 mb-0 pb-0">
+                                                                <a href="{% url 'product' product.id %}"
+                                                                        class="btn btn-success px-4 mb-2 rounded-3">Buy</a>
+                                                                <a href="{% url 'add_to_cart' product.id %}"
+                                                                        class="btn btn-primary px-4 mb-2 rounded-3">Cart</a>
+                                                        </div>
+                                                </a>
+
                                         </div>
                                 </div>
                         </div>
