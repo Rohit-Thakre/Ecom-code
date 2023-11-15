@@ -17,10 +17,19 @@ home
         <div class="carousel-item 
         {% if forloop.counter0 == 0 %} active {% endif %}
             " data-bs-interval="2000">
+
+            {% if banner.product %}
             <a href="{% url 'product' banner.product.id %}">
 
-                <img src="{{banner.img.url}}" class="d-block w-100 bg-primary" alt="..." height="400px">
-            </a>
+                {% else %}
+                <a href="{% url 'category' banner.category  %}">
+
+
+                    {% endif %}
+
+
+                    <img src="{{banner.img.url}}" class="d-block w-100 bg-primary" alt="..." height="400px">
+                </a>
         </div>
         {% endfor %}
 
