@@ -70,7 +70,9 @@ class Product(models.Model):
     dislikes = models.PositiveBigIntegerField(default=0)
     rating = models.PositiveIntegerField(default=0)
 
-    total_orders = models.PositiveIntegerField(null=True, default=0)
+    rating_sum = models.PositiveBigIntegerField(default=0)
+
+    total_orders = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         # return str(self.name) + str(self.current_price)
