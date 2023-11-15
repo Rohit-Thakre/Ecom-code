@@ -347,7 +347,7 @@ def review(request, key):
         # rate_count = rate_count + int(rate) 
 
 
-        product.rating = int(product.rating_sum) + int(rate) / (reviews.count() +1)
+        product.rating = (int(product.rating_sum) + int(rate)) / (reviews.count() +1)
         product.rating_sum = int(product.rating_sum) + int(rate)
         
         product.save()
