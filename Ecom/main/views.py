@@ -203,7 +203,7 @@ def product(request, key):
         review.image = Review_image.objects.filter(review= review)
 
         # countring total_rating
-        rating += review.rating
+        rating += int(review.rating)
 
     if reviews.count():
         rating  = rating/reviews.count()
@@ -340,15 +340,17 @@ def review(request, key):
         
         rate_count = 0
         for review in reviews:
-            rate_count += review.rating
+            rate_count += int(review.rating)
         
-        rate_count = rate_count + rate 
+        rate_count = rate_count + int(rate) 
 
         product.rating = int(rate_count / (reviews.count()+1))
         product.save()
 
         show = 1
         msg = 'Review Added.'
+
+        return redirect('product', key)
 
     context = {'show': show, 'msg': msg}
     return render(request, 'reviewForm.html', context)
