@@ -196,22 +196,24 @@ def product(request, key):
     products = Product.objects.all()
     off = int(product.max_price) - int(product.current_price)
     reviews = Review.objects.filter(product=product)
-    rating = 0
+    # rating = 0
 
     for review in reviews: 
         # for getting all image for each review and attaching it to review obj
         review.image = Review_image.objects.filter(review= review)
 
         # countring total_rating
-        rating += int(review.rating)
+        # rating += int(review.rating)
 
-    if reviews.count():
-        rating  = rating/reviews.count()
-    rating = 0
+    # if reviews.count():
+        # rating  = rating/reviews.count()
+    # rating = 0
+
+
 
     
     context = {'product': product, 'reviews': reviews,
-               'off': off, 'products': products, 'rating':rating, 'frange' : range(int(rating)),'erange':range(5-int(rating))}
+               'off': off, 'products': products, 'frange' : range(int(product.rating)),'erange':range(5-int(product.rating))}
     
     return render(request, 'product-view.html', context)
 
@@ -338,13 +340,16 @@ def review(request, key):
             review_image = Review_image.objects.create(image = image, user = request.user, review = review_obj)
             review_image.save()
         
-        rate_count = 0
-        for review in reviews:
-            rate_count += int(review.rating)
+        # rate_count = 0
+        # for review in reviews:
+        #     rate_count += int(review.rating)
         
-        rate_count = rate_count + int(rate) 
+        # rate_count = rate_count + int(rate) 
 
-        product.rating = int(rate_count / (reviews.count()+1))
+
+        product.rating = int(product.rating_sum) + int(rate) / (reviews.count() +1)
+        product.rating_sum = int(product.rating_sum) + int(rate)
+        
         product.save()
 
         show = 1
