@@ -109,6 +109,8 @@ def add_product(request):
 
         msg = 'product added.'
         show = 1
+        return redirect('home')
+        
 
     return render(request, 'add_product.html', {'category_list': category_list, 'msg': msg, 'show': show})
 
